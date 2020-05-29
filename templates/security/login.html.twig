@@ -2,41 +2,65 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('admin') }}
+{% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <!-- login area start -->
+    <div class="login-area login-bg">
+        <div class="container">
+            <div class="login-box ptb--100">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert m-auto text-center alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+                    <div class="login-form-head">
+                        <h4>FOKONTANIKO</h4>
+                        <p>Fokontany nomerika</p>
+                    </div>
+                    <div class="login-form-body">
+                        <div class="form-gp">
+                            <label for="inputUserName">Anarana fidirana</label>
+                            <input autocomplete="off" value="{{ last_username }}"  type="text" name="userName" id="inputUserName">
+                            <i class="ti-user"></i>
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="form-gp">
+                            <label for="inputPassword">Teny miafina</label>
+                            <input autocomplete="off" type="password" name="password" id="inputPassword">
+                            <i class="ti-lock"></i>
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="row mb-4 rmber-area">
+                            <div class="col-6">
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" name="_remember_me" class="custom-control-input" id="customControlAutosizing">
+                                    <label class="custom-control-label" for="customControlAutosizing">Tehirizina</label>
+                                </div>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="#">Teny miafina adino ?</a>
+                            </div>
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+                        </div>
+                        <div class="submit-btn-area">
+                            <button id="form_submit" type="submit">Hiditra <i class="ti-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUserName">User Name</label>
-    <input type="text" value="{{ last_username }}" name="userName" id="inputUserName" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </div>
+    <!-- login area end -->
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
 {% endblock %}

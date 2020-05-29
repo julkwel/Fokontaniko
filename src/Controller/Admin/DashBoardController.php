@@ -16,10 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashBoardController extends AbstractBaseController
 {
     /**
-     * @Route("/admin",name="dashboard_home", methods={"GET"})
+     * @Route("/dashboard",name="dashboard_home", methods={"GET"})
      */
     public function dashboardHome()
     {
-        return $this->render('admin/Dashboard/_dashboard_home.html.twig');
+        return $this->render('admin/dashboard/_dashboard_home.html.twig');
     }
 }

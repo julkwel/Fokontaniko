@@ -17,10 +17,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AbstractBaseController extends AbstractController
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    protected $entityManager;
 
     /** @var UserPasswordEncoderInterface */
-    private $userPassEncoder;
+    protected $userPassEncoder;
 
     /**
      * AbstractBaseController constructor.

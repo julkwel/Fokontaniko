@@ -5,7 +5,14 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body class="body-bg">
+        <!-- preloader area start -->
+        {% block loader %}
+            <div id="preloader">
+                <div class="loader"></div>
+            </div>
+        {% endblock %}
+        <!-- preloader area end -->
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

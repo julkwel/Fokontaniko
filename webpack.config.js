@@ -23,9 +23,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('admin', './assets/js/admin.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -52,6 +50,10 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
+    .configureUrlLoader({
+        fonts: { limit: 4096 },
+        images: { limit: 4096 }
+    })
 
     // enables Sass/SCSS support
     //.enableSassLoader()
@@ -61,14 +63,18 @@ Encore
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+    .enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
-
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+    .autoProvidejQuery()
+    .autoProvideVariables(
+        {
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            'Routing': 'router'
+        }
+    )
 ;
 
 module.exports = Encore.getWebpackConfig();

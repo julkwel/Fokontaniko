@@ -64,7 +64,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $userName;
 
@@ -72,6 +72,11 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isAlive;
+
+    /**
+     * @ORM\Column(type="string", length=20,nullable=true)
+     */
+    private $cin;
 
     /**
      * User constructor.
@@ -308,5 +313,25 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    /**
+     * @param string|null $cin
+     *
+     * @return $this
+     */
+    public function setCin(?string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
     }
 }
