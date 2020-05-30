@@ -8,13 +8,21 @@
 namespace App\Controller\Admin;
 
 use App\Constant\MessageConstant;
+use App\Constant\PageConstant;
 use App\Controller\AbstractBaseController;
+use App\Controller\Manager\UserManager;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
+use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController.
@@ -23,25 +31,61 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractBaseController
 {
+    /** @var UserManager */
+    private $userManager;
+
     /**
-     * @Route("/new/{user}", name="create_user", methods={"POST","GET"})
+     * UserController constructor.
+     *
+     * @param EntityManagerInterface       $entityManager
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param UrlEncryptor                 $urlEncrypt
+     * @param PaginatorInterface           $paginator
+     * @param UserManager                  $userManager
+     */
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserManager $userManager)
+    {
+        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        $this->userManager = $userManager;
+    }
+
+    /**
+     * @Route("/list", name="list_user", methods={"POST","GET"})
+     *
+     * @param Request        $request
+     * @param UserRepository $repository
+     *
+     * @return Response the list of user
+     */
+    public function listUser(Request $request, UserRepository $repository)
+    {
+        $pagination = $this->paginator->paginate(
+            $repository->findPublic(),
+            $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
+            PageConstant::DEFAULT_NUMBER_PER_PAGE
+        );
+
+        return $this->render('admin/user/_user_list.html.twig', ['users' => $pagination]);
+    }
+
+    /**
+     * @Route("/new/{id?}", name="manage_user", methods={"POST","GET"})
+     *
+     * @ParamDecryptor(params={"id"})
      *
      * @param Request   $request
      * @param User|null $user
      *
      * @return Response
      */
-    public function newUser(Request $request, User $user = null)
+    public function manageUser(Request $request, User $user = null)
     {
         $user = $user ?? new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($this->userPassEncoder->encodePassword($user, $user->getPassword()));
-            $user->setFokontany($this->getUser() && $this->getUser()->getFokontany() ?
-                $this->getUser()->getFokontany() : null);
-            $user->setRoles(['ROLE_USER']);
+            $user = $this->userManager->handleUserBeforePersist($form, $user, $this->getUser());
 
             if ($this->save($user)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Tafiditra i'.$user->getUsername().' nampidirinao!');
@@ -54,7 +98,7 @@ class UserController extends AbstractBaseController
         }
 
 
-        return $this->render('admin/user/_user_form.html.twig',['form'=>$form->createView()]);
+        return $this->render('admin/user/_user_form.html.twig', ['form' => $form->createView()]);
     }
 
     /**

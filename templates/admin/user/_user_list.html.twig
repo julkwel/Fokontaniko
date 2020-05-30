@@ -1,0 +1,27 @@
+{% extends 'admin/_index_admin.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="d-block w-100 text-right">
+            <a href="{{ path('manage_user') }}" class="btn btn-sm btn-primary">Hampiditra olona <i class="ti-plus"></i></a>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mt-2">
+                {% for user in users %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3">{{ user.firstName ~' ' ~ user.lastName }}</div>
+                            <div class="col-md-3">{{ user.adresse }}</div>
+                            <div class="col-md-3">{{ user.contact }}</div>
+                            <div class="col-md-3">
+                                <a href="{{ path('manage_user',{"id": user.id|urlencrypt}) }}">Hanova <i
+                                            class="ti-pencil"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}

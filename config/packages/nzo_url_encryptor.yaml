@@ -1,0 +1,4 @@
+nzo_url_encryptor:
+  secret_key: 'fokontanikoNumerique@2020'    # Required, max length of 100 characters.
+  secret_iv:  'fokontanikoNumerique@2020'               # Required, max length of 100 characters.
+  cipher_algorithm:  'aes-256-ctr'                    # optional, default: 'aes-256-ctr'

@@ -2,7 +2,7 @@
 /**
  * © Julkwel <julienrajerison5@gmail.com>
  *
- * Fokontany form
+ * Fokontany form.
  */
 
 namespace App\Form;
@@ -72,6 +72,7 @@ class UserType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Teny miafina',
+                    'mapped' => false,
                 ]
             );
     }

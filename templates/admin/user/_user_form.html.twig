@@ -1,7 +1,7 @@
 {% extends 'admin/_index_admin.html.twig' %}
 
 {% block content %}
-    <div class="row mt-5 col-md-12 justify-content-center">
+    <div class="row col-md-12 justify-content-center">
         <div class="card col-md-6">
             <div class="text-center">
                 <h1>Hampiditra olona</h1>
@@ -22,7 +22,14 @@
                             {{ form_row(form.password) }}
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-secondary d-block w-100">Ampidirina</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ path('list_user') }}" type="button" class="btn btn-outline-danger d-block w-100">Hiala</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-primary d-block w-100">Ampidirina</button>
+                        </div>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
