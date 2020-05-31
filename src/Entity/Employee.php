@@ -1,15 +1,19 @@
 <?php
+/**
+ * © Julkwel <julienrajerison5@gmail.com>
+ *
+ * Fokontany entity.
+ */
 
 namespace App\Entity;
 
-use App\Repository\ResponsableRepository;
+use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\Timestampable;
 
 /**
- * @ORM\Entity(repositoryClass=ResponsableRepository::class)
+ * @ORM\Entity(repositoryClass=EmployeeRepository::class)
  */
-class Responsable
+class Employee
 {
     /**
      * @ORM\Id()
@@ -33,16 +37,27 @@ class Responsable
      */
     private $salary;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     *
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -50,11 +65,19 @@ class Responsable
         return $this;
     }
 
+    /**
+     * @return Fokontany|null
+     */
     public function getFokontany(): ?Fokontany
     {
         return $this->fokontany;
     }
 
+    /**
+     * @param Fokontany|null $fokontany
+     *
+     * @return $this
+     */
     public function setFokontany(?Fokontany $fokontany): self
     {
         $this->fokontany = $fokontany;
@@ -62,11 +85,19 @@ class Responsable
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSalary(): ?string
     {
         return $this->salary;
     }
 
+    /**
+     * @param string|null $salary
+     *
+     * @return $this
+     */
     public function setSalary(?string $salary): self
     {
         $this->salary = $salary;

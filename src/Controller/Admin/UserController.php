@@ -69,9 +69,7 @@ class UserController extends AbstractBaseController
     }
 
     /**
-     * @Route("/manage/{type}/{id?}", name="manage_user", methods={"POST","GET"})
-     *
-     * @ParamDecryptor(params={"id"})
+     * @Route("/manage/{id?}", name="manage_user", methods={"POST","GET"})
      *
      * @param Request   $request
      * @param User|null $user
@@ -94,7 +92,7 @@ class UserController extends AbstractBaseController
             }
             $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko!');
 
-            return $this->redirectToRoute('manage_user', ['user' => $user->getId()]);
+            return $this->redirectToRoute('manage_user', ['id' => $user->getId()]);
         }
 
 

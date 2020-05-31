@@ -1,0 +1,39 @@
+{% extends 'admin/_index_admin.html.twig' %}
+
+{% block content %}
+    <div class="row col-md-12 justify-content-center">
+        <div class="card col-md-6">
+            <div class="text-center">
+                <h1>Hampiditra olona</h1>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.user.firstName) }}
+                            {{ form_row(form.user.lastName) }}
+                            {{ form_row(form.user.adresse) }}
+                            {{ form_row(form.user.contact) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.user.cin) }}
+                            {{ form_row(form.salary) }}
+                            {{ form_row(form.user.userName) }}
+                            {{ form_row(form.user.password) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ path('list_user') }}" type="button" class="btn btn-outline-danger d-block w-100">Hiala</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-primary d-block w-100">Ampidirina</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

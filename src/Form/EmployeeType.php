@@ -7,7 +7,7 @@
 
 namespace App\Form;
 
-use App\Entity\Responsable;
+use App\Entity\Employee;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class ResponsableType.
  */
-class ResponsableType extends AbstractType
+class EmployeeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -45,7 +45,7 @@ class ResponsableType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => Responsable::class,
+                'data_class' => Employee::class,
             ]
         );
     }
