@@ -94,7 +94,7 @@ class UserController extends AbstractBaseController
             }
             $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko!');
 
-            return $this->redirectToRoute('create_user', ['user' => $user->getId()]);
+            return $this->redirectToRoute('manage_user', ['user' => $user->getId()]);
         }
 
 
@@ -104,7 +104,7 @@ class UserController extends AbstractBaseController
     /**
      * @Route("/remove/{id}", name="user_die", methods={"POST","GET"})
      *
-     * @param User $user
+     * @param User $user died
      *
      * @return RedirectResponse
      */
@@ -113,10 +113,12 @@ class UserController extends AbstractBaseController
         $user->setIsAlive(false);
 
         if ($this->save($user)) {
-            $this->addFlash();
-        }
-        $this->addFlash();
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovàna');
 
-        return $this->redirectToRoute('');
+            return $this->redirectToRoute('list_user');
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
+
+        return $this->redirectToRoute('list_user');
     }
 }
