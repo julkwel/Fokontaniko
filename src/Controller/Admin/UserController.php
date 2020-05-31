@@ -69,7 +69,7 @@ class UserController extends AbstractBaseController
     }
 
     /**
-     * @Route("/new/{id?}", name="manage_user", methods={"POST","GET"})
+     * @Route("/manage/{type}/{id?}", name="manage_user", methods={"POST","GET"})
      *
      * @ParamDecryptor(params={"id"})
      *
@@ -103,6 +103,8 @@ class UserController extends AbstractBaseController
 
     /**
      * @Route("/remove/{id}", name="user_die", methods={"POST","GET"})
+     *
+     * @ParamDecryptor(params={"id"})
      *
      * @param User $user died
      *

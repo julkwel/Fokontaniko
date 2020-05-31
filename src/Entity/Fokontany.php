@@ -2,7 +2,7 @@
 /**
  * © Julkwel <julienrajerison5@gmail.com>
  *
- * Fokontany entity
+ * Fokontany entity.
  */
 
 namespace App\Entity;
@@ -38,6 +38,11 @@ class Fokontany
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="fokontany")
      */
     private $users;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Responsable::class, mappedBy="fokontany", cascade={"persist", "remove"})
+     */
+    private $responsable;
 
     /**
      * Fokontany constructor.
@@ -131,6 +136,24 @@ class Fokontany
             if ($user->getFokontany() === $this) {
                 $user->setFokontany(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getResponsable(): ?Responsable
+    {
+        return $this->responsable;
+    }
+
+    public function setResponsable(?Responsable $responsable): self
+    {
+        $this->responsable = $responsable;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newFokontany = null === $responsable ? null : $this;
+        if ($responsable->getFokontany() !== $newFokontany) {
+            $responsable->setFokontany($newFokontany);
         }
 
         return $this;

@@ -2,7 +2,7 @@
 /**
  * © Julkwel <julienrajerison5@gmail.com>
  *
- * Fokontany entity
+ * Fokontany entity.
  */
 
 namespace App\Entity;
