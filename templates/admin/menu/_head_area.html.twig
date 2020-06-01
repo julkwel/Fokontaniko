@@ -5,24 +5,28 @@
                 <div class="horizontal-menu">
                     <nav>
                         <ul id="nav_menu">
-                            <li>
-                                <a href="{{ path('list_employee') }}">
-                                    <i class="ti-dashboard"></i>
-                                    <span>Mpiasa</span>
-                                </a>
-                            </li>
-                            <li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="{% if menu_employe is defined %}active{% endif %}">
+                                    <a href="{{ path('list_employee') }}">
+                                        <i class="ti-dashboard"></i>
+                                        <span>Mpiasa</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="{% if menu_user is defined %}active{% endif %}">
                                 <a href="{{ path('list_user') }}">
                                     <i class="fa fa-group"></i>
                                     <span>Mponina</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="ti-desktop"></i>
-                                    <span>Fangatahana</span>
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <li class="{% if menu_fokontany is defined %}active{% endif %}">
+                                    <a href="{{ path('fokontany_list') }}">
+                                        <i class="ti-desktop"></i>
+                                        <span>Fokontany</span>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </nav>
                 </div>

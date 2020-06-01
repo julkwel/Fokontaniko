@@ -114,7 +114,6 @@ class FokontanyController extends AbstractBaseController
             /** @var Employee $responsable */
             $responsable = $this->entityManager->getRepository(Employee::class)->findOneBy(['user' => $user]);
             if ($fokontany) {
-                $user->setFokontany($fokontany);
                 $fokontany->addResponsable($responsable);
 
                 if ($this->save($fokontany)) {

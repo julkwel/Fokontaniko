@@ -60,9 +60,11 @@ class EmployeeController extends AbstractBaseController
     {
         /** @var Employee $employe */
         $employe = $this->repository->findOneBy(['user' => $this->getUser()]);
-
-        /** @var Fokontany|null $fokontany */
-        $fokontany = $this->entityManager->getRepository(Fokontany::class)->find($employe->getFokontany());
+        $fokontany = null;
+        if ($employe) {
+            /** @var Fokontany|null $fokontany */
+            $fokontany = $this->entityManager->getRepository(Fokontany::class)->find($employe->getFokontany());
+        }
 
         $pagination = $this->paginator->paginate(
             $this->repository->findAllEmployee($fokontany),
@@ -91,6 +93,7 @@ class EmployeeController extends AbstractBaseController
             $user = $employee->getUser();
 
             if (!empty($form->get('user')->get('password')->getData())) {
+                $user->setRoles(['ROLE_ADMIN']);
                 $user->setPassword($form->get('user')->get('password')->getData());
                 $user->setPassword($this->userPassEncoder->encodePassword($user, $user->getPassword()));
             }
