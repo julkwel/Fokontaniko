@@ -72,21 +72,21 @@ class AbstractBaseController extends AbstractController
     }
 
     /**
-     * @param string $id to decrypt
+     * @param string|null $id to decrypt
      *
      * @return string of the decrypted id
      */
-    public function decryptThisId(string $id)
+    public function decryptThisId(?string $id)
     {
         return $this->urlEncrypt->decrypt($id);
     }
 
     /**
-     * @param string $id to encrypt
+     * @param string|null $id to encrypt
      *
      * @return string of encrypted id
      */
-    public function encryptThisId(string $id)
+    public function encryptThisId(?string $id)
     {
         return $this->urlEncrypt->encrypt($id);
     }

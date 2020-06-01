@@ -43,12 +43,12 @@ class UserManager
     /**
      * @param FormInterface $form        current form to get password
      * @param User          $user        to manage
-     * @param User          $currentUser the connected user
+     * @param User|null     $currentUser the connected user
      * @param bool|null     $isPublic    is the user is public
      *
      * @return User will save
      */
-    public function handleUserBeforePersist(FormInterface $form, User $user, User $currentUser, ?bool $isPublic = true)
+    public function handleUserBeforePersist(FormInterface $form, User $user, ?User $currentUser, ?bool $isPublic = true)
     {
         if (!empty($form->get('password')->getData())) {
             $user->setPassword($form->get('password')->getData());

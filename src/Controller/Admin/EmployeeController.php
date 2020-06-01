@@ -67,20 +67,24 @@ class EmployeeController extends AbstractBaseController
     /**
      * @Route("/manage/{id?}", name="employee_manage", methods={"POST","GET"})
      *
-     * @ParamDecryptor(params="id")
-     *
-     * @param Request  $request
-     * @param Employee $employee
+     * @param Request     $request
+     * @param string|null $id
      *
      * @return Response
      */
-    public function manageEmployee(Request $request, Employee $employee = null)
+    public function manageEmployee(Request $request, ?string $id = null)
     {
-        $employee = $employee ?? new Employee();
+        $employee = $this->repository->find($this->decryptThisId($id)) ?? new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $employee->getUser();
+            if (!empty($form->get('user')->get('password')->getData())) {
+                $user->setPassword($form->get('user')->get('password')->getData());
+                $user->setPassword($this->userPassEncoder->encodePassword($user, $user->getPassword()));
+            }
+
             $employee->setFokontany($this->getUser()->getFokontany());
 
             if ($this->save($employee)) {

@@ -40,7 +40,7 @@ class Fokontany
     private $users;
 
     /**
-     * @ORM\OneToOne(targetEntity=Responsable::class, mappedBy="fokontany", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Employee::class, mappedBy="fokontany", cascade={"persist", "remove"})
      */
     private $responsable;
 

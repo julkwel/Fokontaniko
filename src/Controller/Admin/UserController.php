@@ -34,6 +34,9 @@ class UserController extends AbstractBaseController
     /** @var UserManager */
     private $userManager;
 
+    /** @var UserRepository */
+    private $repository;
+
     /**
      * UserController constructor.
      *
@@ -42,11 +45,13 @@ class UserController extends AbstractBaseController
      * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param UserManager                  $userManager
+     * @param UserRepository               $userRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserManager $userManager)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserManager $userManager, UserRepository $userRepository)
     {
         parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
         $this->userManager = $userManager;
+        $this->repository = $userRepository;
     }
 
     /**
@@ -71,14 +76,14 @@ class UserController extends AbstractBaseController
     /**
      * @Route("/manage/{id?}", name="manage_user", methods={"POST","GET"})
      *
-     * @param Request   $request
-     * @param User|null $user
+     * @param Request     $request
+     * @param string|null $id
      *
      * @return Response
      */
-    public function manageUser(Request $request, User $user = null)
+    public function manageUser(Request $request, ?string $id = null)
     {
-        $user = $user ?? new User();
+        $user = $this->repository->find($this->decryptThisId($id)) ?? new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
