@@ -1,1 +1,49 @@
-Hoavy tsy ho ela :)
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('front') }}
+{% endblock %}
+
+{% block body %}
+<body>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+        <h1 class="logo mr-auto">
+            <a href="{{ path('front_home') }}">Fokontaniko</a>
+        </h1>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+                 data-aos="fade-up" data-aos-delay="200">
+                <h1>FOKONTANIKO</h1>
+                <h2>Fokontany nomerika, natao hanamaivanana ny fivezivezena eny amin'ny biraom-pokontany</h2>
+                <div class="d-lg-flex">
+                    <a href="{{ path('app_login') }}" class="btn-get-started btn-info btn-lg d-block w-100 text-center">
+                        Login <i class="ti-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-7 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{{ asset('images/hero-img.png') }}" class="img-fluid animated" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}

@@ -7,6 +7,16 @@
         {% include 'admin/menu/_top_nav.html.twig' %}
         <div class="main-content-inner">
             <div class="container mt-3">
+                {% for flash in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>{{ flash }}</strong>
+                    </div>
+                {% endfor %}
+                {% for flash in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>{{ flash }}</strong>
+                    </div>
+                {% endfor %}
                 {% block content %}{% endblock %}
             </div>
         </div>

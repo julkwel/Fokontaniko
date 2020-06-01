@@ -12,13 +12,13 @@
                                         <span>Mpiasa</span>
                                     </a>
                                 </li>
+                                <li class="{% if menu_user is defined %}active{% endif %}">
+                                    <a href="{{ path('list_user') }}">
+                                        <i class="fa fa-group"></i>
+                                        <span>Mponina</span>
+                                    </a>
+                                </li>
                             {% endif %}
-                            <li class="{% if menu_user is defined %}active{% endif %}">
-                                <a href="{{ path('list_user') }}">
-                                    <i class="fa fa-group"></i>
-                                    <span>Mponina</span>
-                                </a>
-                            </li>
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
                                 <li class="{% if menu_fokontany is defined %}active{% endif %}">
                                     <a href="{{ path('fokontany_list') }}">

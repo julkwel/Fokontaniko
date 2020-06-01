@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class FokontanyController.
  *
- * @Route("/fokontany")
+ * @Route("/admin/fokontany")
  */
 class FokontanyController extends AbstractBaseController
 {
