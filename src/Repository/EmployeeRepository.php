@@ -8,6 +8,7 @@
 namespace App\Repository;
 
 use App\Entity\Employee;
+use App\Entity\Fokontany;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,10 +32,16 @@ class EmployeeRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Fokontany|null $fokontany
+     *
      * @return Query
      */
-    public function findAllEmployee()
+    public function findAllEmployee(?Fokontany $fokontany)
     {
-        return $this->createQueryBuilder('e')->getQuery();
+        $qb = $this->createQueryBuilder('e')
+            ->andWhere('e.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany);
+
+        return $qb->getQuery();
     }
 }

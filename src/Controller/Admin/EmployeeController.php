@@ -1,6 +1,8 @@
 <?php
 /**
- * @author <Bocasay>.
+ * © Julkwel <julienrajerison5@gmail.com>
+ *
+ * Fokontany Controller.
  */
 
 namespace App\Controller\Admin;
@@ -47,16 +49,23 @@ class EmployeeController extends AbstractBaseController
     }
 
     /**
-     * @param Request $request
+     * @param Request     $request
+     * @param string|null $id
      *
      * @return Response the list of employee by fokontany
      *
      * @Route("/list", name="list_employee", methods={"POST","GET"})
      */
-    public function listEmployee(Request $request)
+    public function listEmployee(Request $request, ?string $id)
     {
+        /** @var Employee $employe */
+        $employe = $this->repository->findOneBy(['user' => $this->getUser()]);
+
+        /** @var Fokontany|null $fokontany */
+        $fokontany = $this->entityManager->getRepository(Fokontany::class)->find($employe->getFokontany());
+
         $pagination = $this->paginator->paginate(
-            $this->repository->findAllEmployee(),
+            $this->repository->findAllEmployee($fokontany),
             $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
             PageConstant::DEFAULT_NUMBER_PER_PAGE
         );
@@ -80,6 +89,7 @@ class EmployeeController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $employee->getUser();
+
             if (!empty($form->get('user')->get('password')->getData())) {
                 $user->setPassword($form->get('user')->get('password')->getData());
                 $user->setPassword($this->userPassEncoder->encodePassword($user, $user->getPassword()));
@@ -89,6 +99,8 @@ class EmployeeController extends AbstractBaseController
 
             if ($this->save($employee)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Tafiditra i'.$employee->getUser()->getFirstName().' nampidirinao !');
+
+                return $this->redirectToRoute('list_employee');
             }
         }
 

@@ -11,6 +11,8 @@ use App\Repository\FokontanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
  * @ORM\Entity(repositoryClass=FokontanyRepository::class)
@@ -18,9 +20,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Fokontany
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var UuidInterface
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
     private $id;
 
@@ -40,9 +45,9 @@ class Fokontany
     private $users;
 
     /**
-     * @ORM\OneToOne(targetEntity=Employee::class, mappedBy="fokontany", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="fokontany")
      */
-    private $responsable;
+    private $responsables;
 
     /**
      * Fokontany constructor.
@@ -50,12 +55,13 @@ class Fokontany
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->responsables = new ArrayCollection();
     }
 
     /**
-     * @return int|null
+     * @return UuidInterface|null
      */
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -141,19 +147,42 @@ class Fokontany
         return $this;
     }
 
-    public function getResponsable(): ?Responsable
+    /**
+     * @return Collection|Employee[]
+     */
+    public function getResponsables(): Collection
     {
-        return $this->responsable;
+        return $this->responsables;
     }
 
-    public function setResponsable(?Responsable $responsable): self
+    /**
+     * @param Employee $responsable
+     *
+     * @return $this
+     */
+    public function addResponsable(Employee $responsable): self
     {
-        $this->responsable = $responsable;
+        if (!$this->responsables->contains($responsable)) {
+            $this->responsables[] = $responsable;
+            $responsable->setFokontany($this);
+        }
 
-        // set (or unset) the owning side of the relation if necessary
-        $newFokontany = null === $responsable ? null : $this;
-        if ($responsable->getFokontany() !== $newFokontany) {
-            $responsable->setFokontany($newFokontany);
+        return $this;
+    }
+
+    /**
+     * @param Employee $responsable
+     *
+     * @return $this
+     */
+    public function removeResponsable(Employee $responsable): self
+    {
+        if ($this->responsables->contains($responsable)) {
+            $this->responsables->removeElement($responsable);
+            // set the owning side to null (unless already changed)
+            if ($responsable->getFokontany() === $this) {
+                $responsable->setFokontany(null);
+            }
         }
 
         return $this;

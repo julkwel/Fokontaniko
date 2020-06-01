@@ -1,0 +1,33 @@
+{% extends 'admin/_index_admin.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="d-block w-100 text-right">
+            <a href="{{ path('fokontany_manage') }}" class="btn btn-sm btn-primary">Hampiditra fokontany <i
+                        class="ti-plus"></i></a>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mt-2">
+                {% for fokontany in fokontanys %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3">{{ fokontany.name }}</div>
+                            <div class="col-md-3">{{ fokontany.codeFkt }}</div>
+                            <div class="col-md-3">
+                                <a href="{{ path('fokontany_manage',{"id": fokontany.id|urlencrypt}) }}">
+                                    <span>Hanova</span>
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a href="{{ path('fokontany_responsable',{"id":fokontany.id|urlencrypt}) }}">
+                                    <span>Mpiandraikitra</span>
+                                    <i class="fa fa-user-secret"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {{ knp_pagination_render(fokontanys) }}
+        </div>
+    </div>
+{% endblock %}

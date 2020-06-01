@@ -9,6 +9,8 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
@@ -16,9 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Employee
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var UuidInterface
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
     private $id;
 
@@ -28,19 +33,19 @@ class Employee
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Fokontany::class, inversedBy="responsable", cascade={"persist", "remove"})
-     */
-    private $fokontany;
-
-    /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $salary;
 
     /**
-     * @return int|null
+     * @ORM\ManyToOne(targetEntity=Fokontany::class, inversedBy="responsables")
      */
-    public function getId(): ?int
+    private $fokontany;
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -66,26 +71,6 @@ class Employee
     }
 
     /**
-     * @return Fokontany|null
-     */
-    public function getFokontany(): ?Fokontany
-    {
-        return $this->fokontany;
-    }
-
-    /**
-     * @param Fokontany|null $fokontany
-     *
-     * @return $this
-     */
-    public function setFokontany(?Fokontany $fokontany): self
-    {
-        $this->fokontany = $fokontany;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
     public function getSalary(): ?string
@@ -101,6 +86,26 @@ class Employee
     public function setSalary(?string $salary): self
     {
         $this->salary = $salary;
+
+        return $this;
+    }
+
+    /**
+     * @return Fokontany|null
+     */
+    public function getFokontany(): ?Fokontany
+    {
+        return $this->fokontany;
+    }
+
+    /**
+     * @param Fokontany|null $fokontany
+     *
+     * @return $this
+     */
+    public function setFokontany(?Fokontany $fokontany): self
+    {
+        $this->fokontany = $fokontany;
 
         return $this;
     }

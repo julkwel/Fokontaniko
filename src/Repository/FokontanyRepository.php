@@ -9,6 +9,7 @@ namespace App\Repository;
 
 use App\Entity\Fokontany;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,5 +28,13 @@ class FokontanyRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Fokontany::class);
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllFokontany()
+    {
+        return $this->createQueryBuilder('f')->getQuery();
     }
 }

@@ -65,7 +65,7 @@ class UserController extends AbstractBaseController
     public function listUser(Request $request, UserRepository $repository)
     {
         $pagination = $this->paginator->paginate(
-            $repository->findPublic(),
+            $repository->findPublic($this->getUser()->getFokontany()),
             $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
             PageConstant::DEFAULT_NUMBER_PER_PAGE
         );

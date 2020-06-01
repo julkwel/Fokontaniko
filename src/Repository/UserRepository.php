@@ -7,6 +7,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Fokontany;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -33,28 +34,35 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Fokontany|null $fokontany
+     *
      * @return mixed number of user
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function getTotalUser()
+    public function getTotalUser(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany)
             ->select('count(u.id)');
 
         return $qb->getQuery()->getSingleScalarResult();
     }
 
     /**
+     * @param Fokontany|null $fokontany
+     *
      * @return Query
      */
-    public function findPublic()
+    public function findPublic(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('u')
             ->where('u.roles LIKE :roles')
-            ->setParameter('roles','%ROLE_USER%')
-        ;
+            ->andWhere('u.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany)
+            ->setParameter('roles', '%ROLE_USER%');
 
         return $qb->getQuery();
     }

@@ -1,0 +1,35 @@
+{% extends 'admin/_index_admin.html.twig' %}
+
+{% block content %}
+    <div class="row col-md-12 justify-content-center">
+        <div class="card col-md-6">
+            <div class="text-center">
+                <h1>Hampiditra mpiandraikitra ny fokontany {{ fokontany.name }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <form action="{{ path('fokontany_responsable', {'id': fokontany.id|urlencrypt}) }}" method="post">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="mpiandraikitra">Mpiandraikitra</label>
+                                    <input type="text" class="form-control" id="mpiandraikitra"
+                                           name="username">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ path('fokontany_list') }}" type="button"
+                                   class="btn btn-outline-danger d-block w-100">Hiala</a>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-outline-primary d-block w-100">Ampidirina</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -51,10 +51,12 @@ class DashBoardController extends AbstractBaseController
      */
     public function dashboardHome()
     {
+        $fokontany = $this->getUser()->getFokontany();
+
         return $this->render(
             'admin/dashboard/_dashboard_home.html.twig',
             [
-                'users' => $this->userRepository->getTotalUser(),
+                'users' => $this->userRepository->getTotalUser($fokontany),
             ]
         );
     }
