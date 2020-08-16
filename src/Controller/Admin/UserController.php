@@ -21,6 +21,7 @@ use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -91,7 +92,10 @@ class UserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->userManager->handleUserBeforePersist($form, $user, $this->getUser());
+            $user = $this->userManager->handleUserBeforePersist($form, $user, $this->getUser(), true);
+            if ($request->get('type')){
+                $user->setRoles(['ROLE_ADMIN']);
+            }
 
             if ($this->save($user)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Tafiditra i'.$user->getUsername().' nampidirinao!');
@@ -144,5 +148,20 @@ class UserController extends AbstractBaseController
         $qrCode = $qrCodeFactory->create($data);
 
         return new QrCodeResponse($qrCode);
+    }
+
+    /**
+     * @Route("/ajax/admin", name="ajax_admin", options={"expose"=true})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function findAdminUser(Request $request)
+    {
+        $query = $request->get('search');
+        $data = $this->repository->findAdmin($query);
+
+        return $this->json($data);
     }
 }

@@ -15,3 +15,4 @@ require('../vendor/js/owl.carousel.min.js');
 require('../vendor/js/plugins.js');
 require('../vendor/js/scripts.js');
 
+require('./module/_select_fetchable_data');

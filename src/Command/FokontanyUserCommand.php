@@ -87,7 +87,7 @@ class FokontanyUserCommand extends Command
         $this->em->persist($user);
         $this->em->flush();
 
-        $io->success('Tafiditra ny'.$user->getFirstName().' nampidirinao');
+        $io->success('Tafiditra i '.$user->getFirstName().' nampidirinao');
 
         return 0;
     }

@@ -9,6 +9,7 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 
@@ -17,6 +18,8 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  */
 class Employee
 {
+    use TimestampableEntity;
+
     /**
      * @var UuidInterface
      *

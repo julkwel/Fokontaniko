@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "endroid/qr-code-bundle": "^3.4",
+        "friendsofsymfony/jsrouting-bundle": "^2.6",
         "knplabs/knp-paginator-bundle": "^5.2",
         "nzo/url-encryptor-bundle": "^5.0",
         "ramsey/uuid-doctrine": "^1.6",

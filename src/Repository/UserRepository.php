@@ -86,4 +86,28 @@ class UserRepository extends ServiceEntityRepository
 
         return $qb->getQuery();
     }
+
+
+    /**
+     * @param string $needle
+     *
+     * @return array
+     */
+    public function findAdmin(string $needle)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :roles AND u.userName LIKE :needle')
+            ->setParameter('needle', '%'.$needle.'%')
+            ->setParameter('roles', '%ROLE_ADMIN%');
+
+        $data = $qb->getQuery()->getResult();
+
+        $list = [];
+        /** @var User $item */
+        foreach ($data as $item) {
+            $list[] = ['id' => $item->getId(), 'text' => $item->getUsername()];
+        }
+
+        return $list;
+    }
 }

@@ -11,6 +11,7 @@ use App\Repository\FokontanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 
@@ -19,6 +20,8 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  */
 class Fokontany
 {
+    use TimestampableEntity;
+
     /**
      * @var UuidInterface
      *
@@ -45,7 +48,7 @@ class Fokontany
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="fokontany")
+     * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="fokontany", cascade={"all"})
      */
     private $responsables;
 

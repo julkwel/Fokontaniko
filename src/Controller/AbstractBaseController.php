@@ -12,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class AbstractBaseController.

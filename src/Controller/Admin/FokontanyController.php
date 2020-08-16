@@ -107,12 +107,17 @@ class FokontanyController extends AbstractBaseController
     {
         $fokontany = $this->repository->find($this->decryptThisId($id));
         if ('POST' === $request->getMethod()) {
-
             /** @var User $user */
-            $user = $this->entityManager->getRepository(User::class)->findOneBy(['userName' => $request->get('username')]);
+            $user = $this->entityManager->getRepository(User::class)->find($request->get('username'));
 
             /** @var Employee $responsable */
-            $responsable = $this->entityManager->getRepository(Employee::class)->findOneBy(['user' => $user]);
+            $responsable = $this->entityManager->getRepository(Employee::class)->findOneBy(['user' => $user]) ?? new Employee();
+            $user->setFokontany($fokontany);
+
+            $responsable
+                ->setFokontany($fokontany)
+                ->setPost('Chef fokontany');
+
             if ($fokontany) {
                 $fokontany->addResponsable($responsable);
 
@@ -123,7 +128,7 @@ class FokontanyController extends AbstractBaseController
                 }
                 $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
 
-                return $this->redirectToRoute('fokontany_responsable', ['fokontany' => $id]);
+                return $this->redirectToRoute('fokontany_responsable', ['id' => $id]);
             }
 
         }

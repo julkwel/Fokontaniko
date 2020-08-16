@@ -9,6 +9,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -18,6 +19,8 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  */
 class User implements UserInterface
 {
+    use TimestampableEntity;
+
     /**
      * @var UuidInterface
      *

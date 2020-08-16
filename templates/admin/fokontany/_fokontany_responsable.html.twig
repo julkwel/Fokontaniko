@@ -6,7 +6,9 @@
     <div class="row col-md-12 justify-content-center">
         <div class="card col-md-6">
             <div class="text-center">
-                <h1>Hampiditra mpiandraikitra ny fokontany {{ fokontany.name }}</h1>
+                <h2>Mpiandraikitra ny fokontany {{ fokontany.name }}</h2>
+                <a href="{{ path('manage_user',{'type':'admin'}) }}" class="btn btn-sm m-2 btn-primary">Hampiditra mpiandraikitra
+                    <i class="ti-plus"></i></a>
             </div>
             <div class="card-body">
                 <div class="">
@@ -14,9 +16,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="mpiandraikitra">Mpiandraikitra</label>
-                                    <input type="text" class="form-control" id="mpiandraikitra"
-                                           name="username">
+                                    <label for="mpiandraikitra">Ampidiro ny anarana</label>
+                                    <select data-url="{{ path('ajax_admin') }}" id="mpiandraikitra"  name="username" class="username-data form-control"> </select>
                                 </div>
                             </div>
                         </div>
