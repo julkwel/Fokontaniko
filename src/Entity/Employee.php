@@ -38,6 +38,11 @@ class Employee
     private $salary;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $post;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Fokontany::class, inversedBy="responsables")
      */
     private $fokontany;
@@ -106,6 +111,26 @@ class Employee
     public function setFokontany(?Fokontany $fokontany): self
     {
         $this->fokontany = $fokontany;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPost(): ?string
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param string|null $post
+     *
+     * @return Employee
+     */
+    public function setPost(?string $post): Employee
+    {
+        $this->post = $post;
 
         return $this;
     }

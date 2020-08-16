@@ -16,6 +16,8 @@ use App\Form\EmployeeType;
 use App\Manager\EmployeeManager;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\Factory\QrCodeFactoryInterface;
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
@@ -107,5 +109,21 @@ class EmployeeController extends AbstractBaseController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/qr-code/{id}", name="generate_qr_employee", methods={"POST","GET"})
+     *
+     * @param Employee               $employee
+     * @param QrCodeFactoryInterface $qrCodeFactory
+     *
+     * @return Response
+     */
+    public function generateQr(Employee $employee, QrCodeFactoryInterface $qrCodeFactory)
+    {
+        $data = $this->renderView('admin/employee/_employe_qr.html.twig', ['employe' => $employee]);
+        $qrCode = $qrCodeFactory->create($data);
+
+        return new QrCodeResponse($qrCode);
     }
 }

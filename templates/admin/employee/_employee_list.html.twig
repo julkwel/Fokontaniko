@@ -14,8 +14,17 @@
                             <div class="col-md-3">{{ employe.user.adresse }}</div>
                             <div class="col-md-3">{{ employe.user.contact }}</div>
                             <div class="col-md-3">
-                                <a class="btn btn-success btn-sm" href="{{ path('employee_manage',{"id": employe.id|urlencrypt}) }}">Hanova
-                                    <i class="ti-pencil"></i></a>
+                                <a class="btn btn-success btn-sm"
+                                   href="{{ path('employee_manage',{"id": employe.id|urlencrypt}) }}">
+                                    <span>HANOVA</span>
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-secondary btn-sm"
+                                   target="_blank"
+                                   href="{{ path('generate_qr_employee',{"id": employe.id }) }}">
+                                    <span>QR CODE</span>
+                                    <i class="ti-pencil"></i>
+                                </a>
                             </div>
                         </div>
                     </li>

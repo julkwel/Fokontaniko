@@ -33,6 +33,13 @@ class EmployeeType extends AbstractType
                 ]
             )
             ->add(
+                'post',
+                TextType::class,
+                [
+                    'label' => 'Andraikitra',
+                ]
+            )
+            ->add(
                 'salary',
                 TextType::class,
                 [

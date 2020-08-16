@@ -10,11 +10,14 @@ namespace App\Controller\Admin;
 use App\Constant\MessageConstant;
 use App\Constant\PageConstant;
 use App\Controller\AbstractBaseController;
+use App\Entity\Employee;
 use App\Manager\UserManager;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\Factory\QrCodeFactoryInterface;
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
@@ -125,5 +128,21 @@ class UserController extends AbstractBaseController
         $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
 
         return $this->redirectToRoute('list_user');
+    }
+
+    /**
+     * @Route("/qr-code/{id}", name="user_qr", methods={"POST","GET"})
+     *
+     * @param User                   $user
+     * @param QrCodeFactoryInterface $qrCodeFactory
+     *
+     * @return Response
+     */
+    public function generateQr(User $user, QrCodeFactoryInterface $qrCodeFactory)
+    {
+        $data = $this->renderView('admin/user/_user_qr_data.html.twig', ['user' => $user]);
+        $qrCode = $qrCodeFactory->create($data);
+
+        return new QrCodeResponse($qrCode);
     }
 }

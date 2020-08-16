@@ -3,7 +3,7 @@
 {% block content %}
     <div class="card">
         <div class="d-block w-100 text-right">
-            <a href="{{ path('manage_user') }}" class="btn btn-sm btn-primary">Hampiditra olona <i class="ti-plus"></i></a>
+            <a href="{{ path('manage_user') }}" class="btn btn-sm btn-primary m-2">Hampiditra olona <i class="ti-plus"></i></a>
         </div>
         <div class="card-body">
             <ul class="list-group mt-2">
@@ -14,8 +14,17 @@
                             <div class="col-md-3">{{ user.adresse }}</div>
                             <div class="col-md-3">{{ user.contact }}</div>
                             <div class="col-md-3">
-                                <a href="{{ path('manage_user',{"id": user.id|urlencrypt}) }}">Hanova <i
-                                            class="ti-pencil"></i></a>
+                                <a class="btn btn-sm btn-success"
+                                   href="{{ path('manage_user',{"id": user.id|urlencrypt}) }}">
+                                    <span>HANOVA</span>
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-sm btn-secondary"
+                                   target="_blank"
+                                   href="{{ path('user_qr',{"id": user.id}) }}">
+                                    <span>QR CODE</span>
+                                    <i class="ti-settings"></i>
+                                </a>
                             </div>
                         </div>
                     </li>
