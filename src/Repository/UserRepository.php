@@ -54,6 +54,26 @@ class UserRepository extends ServiceEntityRepository
     /**
      * @param Fokontany|null $fokontany
      *
+     * @return mixed number of user
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getTotalEmployee(?Fokontany $fokontany)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->andWhere('u.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany)
+            ->setParameter('role', '%ROLE_EM_FKT%')
+            ->select('count(u.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param Fokontany|null $fokontany
+     *
      * @return Query
      */
     public function findPublic(?Fokontany $fokontany)

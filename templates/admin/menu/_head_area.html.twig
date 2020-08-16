@@ -6,6 +6,12 @@
                     <nav>
                         <ul id="nav_menu">
                             {% if is_granted('ROLE_ADMIN') %}
+                                <li class="{% if menu_dashboard is defined %}active{% endif %}">
+                                    <a href="{{ path('dashboard_home') }}">
+                                        <i class="ti-dashboard"></i>
+                                        <span>Statistika</span>
+                                    </a>
+                                </li>
                                 <li class="{% if menu_employe is defined %}active{% endif %}">
                                     <a href="{{ path('list_employee') }}">
                                         <i class="ti-dashboard"></i>

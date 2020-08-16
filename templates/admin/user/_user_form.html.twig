@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             {{ form_row(form.cin) }}
                             {{ form_row(form.userName) }}
-                            {{ form_row(form.password) }}
+                            {{ form_row(form.password,{"attr":{"minlength":8}}) }}
                         </div>
                     </div>
                     <div class="row">

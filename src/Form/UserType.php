@@ -73,6 +73,7 @@ class UserType extends AbstractType
                 [
                     'label' => 'Teny miafina',
                     'mapped' => false,
+                    'required' => !$options['hasUser'],
                 ]
             );
     }
@@ -85,6 +86,7 @@ class UserType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => User::class,
+                'hasUser' => false,
             ]
         );
     }

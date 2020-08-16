@@ -57,6 +57,7 @@ class DashBoardController extends AbstractBaseController
             'admin/dashboard/_dashboard_home.html.twig',
             [
                 'users' => $this->userRepository->getTotalUser($fokontany),
+                'employes' => $this->userRepository->getTotalEmployee($fokontany),
             ]
         );
     }

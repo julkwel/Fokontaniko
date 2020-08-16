@@ -10,7 +10,7 @@ namespace App\Controller\Admin;
 use App\Constant\MessageConstant;
 use App\Constant\PageConstant;
 use App\Controller\AbstractBaseController;
-use App\Controller\Manager\UserManager;
+use App\Manager\UserManager;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -84,7 +84,7 @@ class UserController extends AbstractBaseController
     public function manageUser(Request $request, ?string $id = null)
     {
         $user = $this->repository->find($this->decryptThisId($id)) ?? new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['hasUser' => $user->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

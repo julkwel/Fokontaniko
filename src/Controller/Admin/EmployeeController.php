@@ -13,6 +13,7 @@ use App\Controller\AbstractBaseController;
 use App\Entity\Employee;
 use App\Entity\Fokontany;
 use App\Form\EmployeeType;
+use App\Manager\EmployeeManager;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -33,6 +34,9 @@ class EmployeeController extends AbstractBaseController
     /** @var EmployeeRepository */
     private $repository;
 
+    /** @var EmployeeManager */
+    private $employeManager;
+
     /**
      * EmployeeController constructor.
      *
@@ -42,29 +46,24 @@ class EmployeeController extends AbstractBaseController
      * @param PaginatorInterface           $paginator
      * @param EmployeeRepository           $employeeRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, EmployeeRepository $employeeRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, EmployeeRepository $employeeRepository, EmployeeManager $employeeManager)
     {
         parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
         $this->repository = $employeeRepository;
+        $this->employeManager = $employeeManager;
     }
 
     /**
-     * @param Request     $request
-     * @param string|null $id
+     * @param Request        $request
+     * @param Fokontany|null $fokontany
      *
      * @return Response the list of employee by fokontany
      *
-     * @Route("/list", name="list_employee", methods={"POST","GET"})
+     * @Route("/list/{fokontany?}", name="list_employee", methods={"POST","GET"})
      */
-    public function listEmployee(Request $request, ?string $id)
+    public function listEmployee(Request $request, Fokontany $fokontany = null)
     {
-        /** @var Employee $employe */
-        $employe = $this->repository->findOneBy(['user' => $this->getUser()]);
-        $fokontany = null;
-        if ($employe) {
-            /** @var Fokontany|null $fokontany */
-            $fokontany = $this->entityManager->getRepository(Fokontany::class)->find($employe->getFokontany());
-        }
+        $fokontany = $fokontany ?? $this->getUser()->getFokontany();
 
         $pagination = $this->paginator->paginate(
             $this->repository->findAllEmployee($fokontany),
@@ -86,25 +85,20 @@ class EmployeeController extends AbstractBaseController
     public function manageEmployee(Request $request, ?string $id = null)
     {
         $employee = $this->repository->find($this->decryptThisId($id)) ?? new Employee();
-        $form = $this->createForm(EmployeeType::class, $employee);
+        $form = $this->createForm(EmployeeType::class, $employee, ['onEdit' => $employee->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $employee->getUser();
-
-            if (!empty($form->get('user')->get('password')->getData())) {
-                $user->setRoles(['ROLE_ADMIN']);
-                $user->setPassword($form->get('user')->get('password')->getData());
-                $user->setPassword($this->userPassEncoder->encodePassword($user, $user->getPassword()));
-            }
-
-            $employee->setFokontany($this->getUser()->getFokontany());
+            $employee = $this->employeManager->handleNewEmployee($employee, $form, $this->getUser());
 
             if ($this->save($employee)) {
-                $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Tafiditra i'.$employee->getUser()->getFirstName().' nampidirinao !');
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Tafiditra i '.$employee->getUser()->getFirstName().' nampidirinao !');
 
                 return $this->redirectToRoute('list_employee');
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ity application ity, manasa anao hamerina indray !');
+
+            return $this->redirectToRoute('employee_manage', ['id' => $employee->getId()]);
         }
 
         return $this->render(

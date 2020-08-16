@@ -56,19 +56,16 @@ class AbstractBaseController extends AbstractController
      */
     public function save(object $object)
     {
-        $success = false;
         try {
             if (!$object->getId()) {
                 $this->entityManager->persist($object);
             }
-            $success = true;
-        } catch (\Exception $exception) {
-            $success = false;
-        } finally {
             $this->entityManager->flush();
-        }
 
-        return $success;
+            return true;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 
     /**

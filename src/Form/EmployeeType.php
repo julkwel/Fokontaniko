@@ -27,7 +27,10 @@ class EmployeeType extends AbstractType
         $builder
             ->add(
                 'user',
-                UserType::class
+                UserType::class,
+                [
+                    'hasUser' => $options['onEdit'],
+                ]
             )
             ->add(
                 'salary',
@@ -46,6 +49,7 @@ class EmployeeType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Employee::class,
+                'onEdit' => false,
             ]
         );
     }

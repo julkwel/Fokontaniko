@@ -5,7 +5,7 @@
  * Fokontany Manager.
  */
 
-namespace App\Controller\Manager;
+namespace App\Manager;
 
 use App\Entity\User;
 use Symfony\Component\Form\FormInterface;
@@ -54,10 +54,10 @@ class UserManager
             $user->setPassword($form->get('password')->getData());
         }
 
-        $user->setPassword($this->encodeUserPassword($user, $user->getPassword()));
-        $user->setFokontany($currentUser && $currentUser->getFokontany() ?
-            $currentUser->getFokontany() : null);
-        $user->setRoles($isPublic ? ['ROLE_USER'] : ['ROLE_EM_FKT']);
+        $user
+            ->setPassword($this->encodeUserPassword($user, $user->getPassword()))
+            ->setFokontany($currentUser->getFokontany())
+            ->setRoles($isPublic ? ['ROLE_USER'] : ['ROLE_EM_FKT']);
 
         return $user;
     }
