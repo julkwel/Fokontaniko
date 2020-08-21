@@ -33,6 +33,12 @@ Fokontany management
 
 `- bin/console app:create:user`
 
+# TODO :
 
+```
+- Manage migration request.
+- Manage payements of "adidy".
+- Generate graph for president of fokontany.
+```
 
 **Code for fun !!**
