@@ -7,9 +7,11 @@
 
 namespace App\Form;
 
+use App\Constant\MponinaConstant;
 use App\Entity\Mponina;
 use App\Form\Transformer\MponinaTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,6 +41,14 @@ class MponinaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'type',
+                ChoiceType::class,
+                [
+                    'label' => 'Inona ao anaty fianakaviana ?',
+                    'choices' => array_flip(MponinaConstant::TYPE),
+                ]
+            )
             ->add(
                 'firstName',
                 TextType::class,
@@ -72,6 +82,7 @@ class MponinaType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Ray niteraka',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -79,10 +90,12 @@ class MponinaType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Reny niteraka',
+                    'required' => false,
                 ]
-            )
-            ->get('dad')->addModelTransformer($this->mponinaTransformer)
-            ->get('mum')->addModelTransformer($this->mponinaTransformer);
+            );
+
+        $builder->get('dad')->addModelTransformer($this->mponinaTransformer);
+        $builder->get('mum')->addModelTransformer($this->mponinaTransformer);
     }
 
     /**

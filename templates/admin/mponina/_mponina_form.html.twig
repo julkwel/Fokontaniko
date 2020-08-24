@@ -1,0 +1,31 @@
+{% extends 'admin/_index_admin.html.twig' %}
+
+{% set menu_mponina = true %}
+{% block content %}
+    <div class="row col-md-12 justify-content-center">
+        <div class="card col-md-6">
+            <div class="text-center">
+                <h1>Hampiditra mponina vaovao</h1>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    {{ form_start(form) }}
+                    <div class="row m-auto">
+                        <div class="col-md-12">
+                            {{ form_widget(form) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ path('mponina_list') }}" type="button" class="btn btn-outline-danger d-block w-100">Hiala</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-primary d-block w-100">Ampidirina</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

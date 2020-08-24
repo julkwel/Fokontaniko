@@ -53,12 +53,18 @@ class Fokontany
     private $responsables;
 
     /**
+     * @ORM\OneToMany(targetEntity=Mponina::class, mappedBy="fokontany")
+     */
+    private $mponinas;
+
+    /**
      * Fokontany constructor.
      */
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->responsables = new ArrayCollection();
+        $this->mponinas = new ArrayCollection();
     }
 
     /**
@@ -185,6 +191,37 @@ class Fokontany
             // set the owning side to null (unless already changed)
             if ($responsable->getFokontany() === $this) {
                 $responsable->setFokontany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mponina[]
+     */
+    public function getMponinas(): Collection
+    {
+        return $this->mponinas;
+    }
+
+    public function addMponina(Mponina $mponina): self
+    {
+        if (!$this->mponinas->contains($mponina)) {
+            $this->mponinas[] = $mponina;
+            $mponina->setFokontany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMponina(Mponina $mponina): self
+    {
+        if ($this->mponinas->contains($mponina)) {
+            $this->mponinas->removeElement($mponina);
+            // set the owning side to null (unless already changed)
+            if ($mponina->getFokontany() === $this) {
+                $mponina->setFokontany(null);
             }
         }
 

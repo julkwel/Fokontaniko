@@ -1,0 +1,36 @@
+{% extends 'admin/_index_admin.html.twig' %}
+{% set menu_mponina = true %}
+{% block content %}
+    <div class="card">
+        <div class="d-block w-100 text-right">
+            <a href="{{ path('manage_mponina') }}" class="btn btn-sm m-2 btn-primary">Hampiditra olona vaovao
+                <i class="ti-plus"></i></a>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mt-2">
+                {% for mponina in mponinas %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3">{{ mponina.firstName }}</div>
+                            <div class="col-md-3">{{ mponina.lastName }}</div>
+                            <div class="col-md-3">{{ mponina.adresse }}</div>
+                            <div class="col-md-3">
+                                <a class="btn btn-sm btn-success"
+                                   href="{{ path('manage_mponina',{"id": mponina.id}) }}">
+                                    <span>Hanova</span>
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-sm btn-secondary"
+                                   href="{{ path('remove_mponina',{"id":mponina.id}) }}">
+                                    <span>Hamafa</span>
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {{ knp_pagination_render(mponinas) }}
+        </div>
+    </div>
+{% endblock %}

@@ -36,7 +36,7 @@ class AdidyType extends AbstractType
                 'month',
                 ChoiceType::class,
                 [
-                    'choices' => GlobalConstant::MONTH_LIST,
+                    'choices' => array_flip(GlobalConstant::MONTH_LIST),
                     'label' => 'Volana',
                 ]
             )

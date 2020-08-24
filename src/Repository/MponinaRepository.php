@@ -7,8 +7,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Fokontany;
 use App\Entity\Mponina;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,5 +29,20 @@ class MponinaRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Mponina::class);
+    }
+
+    /**
+     * @param Fokontany|null $fokontany
+     *
+     * @return Query
+     */
+    public function findByFokontany(?Fokontany $fokontany)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.deletedAt IS NULL')
+            ->andWhere('m.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany);
+
+        return $qb->getQuery();
     }
 }
