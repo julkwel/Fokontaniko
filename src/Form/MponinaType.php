@@ -7,17 +7,31 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Mponina;
+use App\Form\Transformer\MponinaTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserType.
+ * Class MponinaType.
  */
-class UserType extends AbstractType
+class MponinaType extends AbstractType
 {
+    /** @var MponinaTransformer */
+    private $mponinaTransformer;
+
+    /**
+     * MponinaType constructor.
+     *
+     * @param MponinaTransformer $mponinaTransformer
+     */
+    public function __construct(MponinaTransformer $mponinaTransformer)
+    {
+        $this->mponinaTransformer = $mponinaTransformer;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -37,52 +51,38 @@ class UserType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Fanampin\'anarana',
-
                 ]
             )
             ->add(
-                'contact',
+                'function',
                 TextType::class,
                 [
-                    'label' => 'Laharan\'ny finday',
+                    'label' => 'Asa atao',
                 ]
             )
             ->add(
                 'adresse',
                 TextType::class,
                 [
-                    'label' => 'Adiresy mazava',
+                    'label' => 'Adiresy Mazava',
                 ]
             )
             ->add(
-                'cin',
+                'dad',
                 TextType::class,
                 [
-                    'label' => 'Karapanondro',
-                    'attr' => [
-                        'minlength' => 12,
-                    ],
+                    'label' => 'Ray niteraka',
                 ]
             )
             ->add(
-                'userName',
+                'mum',
                 TextType::class,
                 [
-                    'label' => 'Anarana fidirana',
+                    'label' => 'Reny niteraka',
                 ]
             )
-            ->add(
-                'password',
-                TextType::class,
-                [
-                    'label' => 'Teny miafina',
-                    'mapped' => false,
-                    'required' => !$options['hasUser'],
-                    'attr' => [
-                        'minlength' => 8,
-                    ],
-                ]
-            );
+            ->get('dad')->addModelTransformer($this->mponinaTransformer)
+            ->get('mum')->addModelTransformer($this->mponinaTransformer);
     }
 
     /**
@@ -90,11 +90,6 @@ class UserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => User::class,
-                'hasUser' => false,
-            ]
-        );
+        $resolver->setDefaults(['data_class' => Mponina::class]);
     }
 }

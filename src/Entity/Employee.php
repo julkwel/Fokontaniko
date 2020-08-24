@@ -46,14 +46,21 @@ class Employee
     private $post;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Fokontany::class, inversedBy="responsables")
      */
     private $fokontany;
 
     /**
-     * @return UuidInterface|null
+     * @return UuidInterface
      */
-    public function getId(): ?UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -134,6 +141,26 @@ class Employee
     public function setPost(?string $post): Employee
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string|null $note
+     *
+     * @return Employee
+     */
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }

@@ -82,7 +82,7 @@ class User implements UserInterface
     private $isAlive;
 
     /**
-     * @ORM\Column(type="string", length=20,nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $cin;
 
@@ -95,9 +95,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return UuidInterface|null
+     * @return UuidInterface
      */
-    public function getId(): ?UuidInterface
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

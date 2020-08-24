@@ -1,23 +1,22 @@
 <?php
 /**
- * © Julkwel <julienrajerison5@gmail.com>
- *
- * Fokontany form.
+ * @author <Bocasay>.
  */
 
 namespace App\Form;
 
-use App\Entity\Employee;
+use App\Constant\GlobalConstant;
+use App\Entity\Adidy;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ResponsableType.
+ * Class AdidyType.
  */
-class EmployeeType extends AbstractType
+class AdidyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,31 +26,25 @@ class EmployeeType extends AbstractType
     {
         $builder
             ->add(
-                'user',
-                UserType::class,
-                [
-                    'hasUser' => $options['onEdit'],
-                ]
-            )
-            ->add(
-                'post',
+                'type',
                 TextType::class,
                 [
-                    'label' => 'Andraikitra',
+                    'label' => 'Karazan\'adidy',
                 ]
             )
             ->add(
-                'salary',
+                'month',
+                ChoiceType::class,
+                [
+                    'choices' => GlobalConstant::MONTH_LIST,
+                    'label' => 'Volana',
+                ]
+            )
+            ->add(
+                'amount',
                 TextType::class,
                 [
-                    'label' => 'Karama',
-                ]
-            )
-            ->add(
-                'note',
-                TextareaType::class,
-                [
-                    'label' => 'Fanamarihana',
+                    'label' => 'Vola naloha',
                 ]
             );
     }
@@ -61,11 +54,6 @@ class EmployeeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => Employee::class,
-                'onEdit' => false,
-            ]
-        );
+        $resolver->setDefaults(['data_class' => Adidy::class]);
     }
 }
