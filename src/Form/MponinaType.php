@@ -12,6 +12,7 @@ use App\Entity\Mponina;
 use App\Form\Transformer\MponinaTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -90,6 +91,22 @@ class MponinaType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Reny niteraka',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'cin',
+                TextType::class,
+                [
+                    'label' => 'Karapanondro',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'note',
+                TextareaType::class,
+                [
+                    'label' => 'Fanamarihana',
                     'required' => false,
                 ]
             );

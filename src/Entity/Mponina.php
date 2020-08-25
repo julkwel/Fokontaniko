@@ -91,6 +91,16 @@ class Mponina
     private $isNew;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $cin;
+
+    /**
      * Mponina constructor.
      */
     public function __construct()
@@ -324,6 +334,46 @@ class Mponina
     public function setIsNew(?string $isNew): Mponina
     {
         $this->isNew = $isNew;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string|null $note
+     *
+     * @return $this
+     */
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    /**
+     * @param string|null $cin
+     *
+     * @return $this
+     */
+    public function setCin(?string $cin): self
+    {
+        $this->cin = $cin;
 
         return $this;
     }

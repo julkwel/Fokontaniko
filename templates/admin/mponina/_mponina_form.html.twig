@@ -11,8 +11,22 @@
                 <div class="">
                     {{ form_start(form) }}
                     <div class="row m-auto">
+                        <div class="col-md-12 row">
+                            <div class="col-md-6">
+                                {{ form_row(form.type) }}
+                                {{ form_row(form.firstName) }}
+                                {{ form_row(form.lastName) }}
+                                {{ form_row(form.function) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.cin) }}
+                                {{ form_row(form.adresse) }}
+                                {{ form_row(form.dad) }}
+                                {{ form_row(form.mum) }}
+                            </div>
+                        </div>
                         <div class="col-md-12">
-                            {{ form_widget(form) }}
+                            {{ form_row(form.note) }}
                         </div>
                     </div>
                     <div class="row">

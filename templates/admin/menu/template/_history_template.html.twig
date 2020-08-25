@@ -1,6 +1,6 @@
 {% for history in historys %}
     <div class="timeline-task">
-        <div class="icon bg1">
+        <div class="icon {% if history.type == 1 %}bg-primary{% elseif history.type == 2 %}bg-success{% elseif history.type == 3 %}bg-danger{% endif %}">
             {% if history.type == 1 %}
                 <i class="ti-plus"></i>
             {% elseif history.type == 2 %}
@@ -18,4 +18,5 @@
         <p>{{ history.action }}</p>
     </div>
 {% endfor %}
-    {{ knp_pagination_render(historys) }}
+
+{{ knp_pagination_render(historys) }}

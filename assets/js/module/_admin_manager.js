@@ -8,7 +8,7 @@ const admin = {
                 let user = $(this).data('user');
 
                 evt.preventDefault();
-                
+
                 bootbox.confirm({
                     message: "Tena hofafanao tokoa ve i " + user,
                     buttons: {
