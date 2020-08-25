@@ -58,9 +58,9 @@ class Employee
     private $fokontany;
 
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
