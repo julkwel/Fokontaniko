@@ -8,6 +8,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AbstractBaseController;
+use App\Repository\MponinaRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
@@ -26,6 +27,9 @@ class DashBoardController extends AbstractBaseController
     /** @var UserRepository */
     private $userRepository;
 
+    /** @var MponinaRepository */
+    private $mponinaRepository;
+
     /**
      * DashBoardController constructor.
      *
@@ -35,10 +39,11 @@ class DashBoardController extends AbstractBaseController
      * @param PaginatorInterface           $paginator
      * @param UserRepository               $userRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserRepository $userRepository, MponinaRepository $mponinaRepository)
     {
         parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
         $this->userRepository = $userRepository;
+        $this->mponinaRepository = $mponinaRepository;
     }
 
     /**
@@ -52,12 +57,14 @@ class DashBoardController extends AbstractBaseController
     public function dashboardHome()
     {
         $fokontany = $this->getUser()->getFokontany();
+        $mponina = $this->mponinaRepository->countMponinaByFokontany($fokontany);
+        $mpiasa = $this->userRepository->getTotalEmployee($fokontany);
 
         return $this->render(
             'admin/dashboard/_dashboard_home.html.twig',
             [
-                'users' => $this->userRepository->getTotalUser($fokontany),
-                'employes' => $this->userRepository->getTotalEmployee($fokontany),
+                'mponina' => $mponina,
+                'employes' => $mpiasa,
             ]
         );
     }

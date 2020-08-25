@@ -1,6 +1,8 @@
 <?php
 /**
- * @author <Bocasay>.
+ * © Julkwel <julienrajerison5@gmail.com>
+ *
+ * Fokontany Controller.
  */
 
 namespace App\Controller\Admin;
@@ -20,7 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class MponinaController.
@@ -80,7 +81,6 @@ class MponinaController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $mponina->setFokontany($this->getUser()->getFokontany());
-
                 $this->save($mponina);
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, sprintf('Tafiditra ny %s nampidirinao', $mponina->getFirstName()));
 

@@ -1,0 +1,8 @@
+.bootbox .modal-footer{
+    display: flex;
+    text-align: center;
+}
+
+.bootbox .modal-body{
+    text-align: center;
+}

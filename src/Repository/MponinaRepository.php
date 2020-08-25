@@ -10,6 +10,8 @@ namespace App\Repository;
 use App\Entity\Fokontany;
 use App\Entity\Mponina;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -44,5 +46,24 @@ class MponinaRepository extends ServiceEntityRepository
             ->setParameter('fokontany', $fokontany);
 
         return $qb->getQuery();
+    }
+
+    /**
+     * @param Fokontany|null $fokontany
+     *
+     * @return mixed
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countMponinaByFokontany(?Fokontany $fokontany)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('COUNT(m.id)')
+            ->where('m.deletedAt IS NULL')
+            ->andWhere('m.fokontany = :fokontany')
+            ->setParameter('fokontany', $fokontany)
+            ->getQuery()->getSingleScalarResult();
+
     }
 }

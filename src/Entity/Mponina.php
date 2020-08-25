@@ -84,11 +84,19 @@ class Mponina
     private $deletedAt;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    private $isNew;
+
+    /**
      * Mponina constructor.
      */
     public function __construct()
     {
         $this->isAlive = true;
+        $this->isNew = true;
     }
 
     /**
@@ -296,6 +304,26 @@ class Mponina
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIsNew(): ?string
+    {
+        return $this->isNew;
+    }
+
+    /**
+     * @param string|null $isNew
+     *
+     * @return Mponina
+     */
+    public function setIsNew(?string $isNew): Mponina
+    {
+        $this->isNew = $isNew;
 
         return $this;
     }

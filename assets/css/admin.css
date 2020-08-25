@@ -8,3 +8,4 @@
 @import '../vendor/css/styles.css';
 @import '../vendor/css/responsive.css';
 @import '~select2';
+@import './module/_admin_custom.css';

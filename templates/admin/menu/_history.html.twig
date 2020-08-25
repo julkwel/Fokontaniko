@@ -6,38 +6,8 @@
     </ul>
     <div class="offset-content tab-content">
         <div id="activity" class="tab-pane fade in show active">
-            <div class="recent-activity">
-                <div class="timeline-task">
-                    <div class="icon bg1">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class="tm-title">
-                        <h4>Rashed sent you an email</h4>
-                        <span class="time"><i class="ti-time"></i>09:35</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
-                    </p>
-                </div>
-                <div class="timeline-task">
-                    <div class="icon bg2">
-                        <i class="fa fa-check"></i>
-                    </div>
-                    <div class="tm-title">
-                        <h4>Added</h4>
-                        <span class="time"><i class="ti-time"></i>7 Minutes Ago</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur.
-                    </p>
-                </div>
-                <div class="timeline-task">
-                    <div class="icon bg2">
-                        <i class="fa fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="tm-title">
-                        <h4>You missed you Password!</h4>
-                        <span class="time"><i class="ti-time"></i>09:20 Am</span>
-                    </div>
-                </div>
+            <div class="recent-activity" style="overflow-y: scroll">
+                {{ render(controller('App\\Controller\\Admin\\HistoryController::historyList')) }}
             </div>
         </div>
         <div id="settings" class="tab-pane fade">
@@ -48,7 +18,7 @@
                         <div class="s-sw-title">
                             <h5>Notifications</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch1" />
+                                <input type="checkbox" id="switch1"/>
                                 <label for="switch1">Toggle</label>
                             </div>
                         </div>
@@ -58,7 +28,7 @@
                         <div class="s-sw-title">
                             <h5>Show recent activity</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch2" />
+                                <input type="checkbox" id="switch2"/>
                                 <label for="switch2">Toggle</label>
                             </div>
                         </div>
@@ -68,7 +38,7 @@
                         <div class="s-sw-title">
                             <h5>Show your emails</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch3" />
+                                <input type="checkbox" id="switch3"/>
                                 <label for="switch3">Toggle</label>
                             </div>
                         </div>
@@ -78,7 +48,7 @@
                         <div class="s-sw-title">
                             <h5>Show Task statistics</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch4" />
+                                <input type="checkbox" id="switch4"/>
                                 <label for="switch4">Toggle</label>
                             </div>
                         </div>
@@ -88,7 +58,7 @@
                         <div class="s-sw-title">
                             <h5>Notifications</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch5" />
+                                <input type="checkbox" id="switch5"/>
                                 <label for="switch5">Toggle</label>
                             </div>
                         </div>
