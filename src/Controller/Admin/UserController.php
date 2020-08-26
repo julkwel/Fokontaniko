@@ -80,14 +80,14 @@ class UserController extends AbstractBaseController
     /**
      * @Route("/manage/{id?}", name="manage_user", methods={"POST","GET"})
      *
-     * @param Request     $request
-     * @param string|null $id
+     * @param Request   $request
+     * @param User|null $user
      *
      * @return Response
      */
-    public function manageUser(Request $request, ?string $id = null)
+    public function manageUser(Request $request, User $user = null)
     {
-        $user = $this->repository->find($this->decryptThisId($id)) ?? new User();
+        $user = $user ?? new User();
         $form = $this->createForm(UserType::class, $user, ['hasUser' => $user->getId()]);
         $form->handleRequest($request);
 

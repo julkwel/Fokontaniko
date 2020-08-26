@@ -13,11 +13,11 @@
                             <div class="col-md-3">{{ fokontany.name }}</div>
                             <div class="col-md-3">{{ fokontany.codeFkt }}</div>
                             <div class="col-md-3">
-                                <a class="btn btn-sm btn-success" href="{{ path('fokontany_manage',{"id": fokontany.id|urlencrypt}) }}">
+                                <a class="btn btn-sm btn-success" href="{{ path('fokontany_manage',{"id": fokontany.id}) }}">
                                     <span>Hanova</span>
                                     <i class="ti-pencil"></i>
                                 </a>
-                                <a  class="btn btn-sm btn-secondary" href="{{ path('fokontany_responsable',{"id":fokontany.id|urlencrypt}) }}">
+                                <a  class="btn btn-sm btn-secondary" href="{{ path('fokontany_responsable',{"id":fokontany.id}) }}">
                                     <span>Mpiandraikitra</span>
                                     <i class="fa fa-user-secret"></i>
                                 </a>

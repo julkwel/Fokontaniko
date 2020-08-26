@@ -19,7 +19,7 @@
                             <div class="col-md-3">{{ employe.user ? employe.user.contact : ''}}</div>
                             <div class="col-md-3">
                                 <a class="btn btn-success btn-sm"
-                                   href="{{ path('employee_manage',{"id": employe.id|urlencrypt}) }}">
+                                   href="{{ path('employee_manage',{"id": employe.id }) }}">
                                     <span>HANOVA</span>
                                     <i class="ti-pencil"></i>
                                 </a>

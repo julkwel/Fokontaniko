@@ -52,14 +52,14 @@ class FokontanyController extends AbstractBaseController
     /**
      * @Route("/manage/{id?}", name="fokontany_manage", methods={"POST","GET"})
      *
-     * @param Request     $request
-     * @param string|null $id
+     * @param Request        $request
+     * @param Fokontany|null $fokontany
      *
      * @return RedirectResponse|Response
      */
-    public function manageFokontany(Request $request, ?string $id = null)
+    public function manageFokontany(Request $request, Fokontany $fokontany = null)
     {
-        $fokontany = $this->repository->find($this->decryptThisId($id)) ?? new Fokontany();
+        $fokontany = $fokontany ?? new Fokontany();
         $form = $this->createForm(FokontanyType::class, $fokontany);
         $form->handleRequest($request);
 
@@ -71,7 +71,7 @@ class FokontanyController extends AbstractBaseController
             }
             $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
 
-            return $this->redirectToRoute('fokontany_manage', ['id' => $this->encryptThisId($fokontany->getId())]);
+            return $this->redirectToRoute('fokontany_manage', ['id' => $fokontany->getId()]);
         }
 
         return $this->render('admin/fokontany/_fokontany_form.html.twig', ['form' => $form->createView()]);
@@ -98,14 +98,13 @@ class FokontanyController extends AbstractBaseController
     /**
      * @Route("/responsable/{id}", name="fokontany_responsable", methods={"POST","GET"})
      *
-     * @param Request     $request
-     * @param string|null $id
+     * @param Request   $request
+     * @param Fokontany $fokontany
      *
      * @return Response
      */
-    public function addResponsable(Request $request, ?string $id)
+    public function addResponsable(Request $request, Fokontany $fokontany)
     {
-        $fokontany = $this->repository->find($this->decryptThisId($id));
         if ('POST' === $request->getMethod()) {
             /** @var User $user */
             $user = $this->entityManager->getRepository(User::class)->find($request->get('username'));
@@ -128,7 +127,7 @@ class FokontanyController extends AbstractBaseController
                 }
                 $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
 
-                return $this->redirectToRoute('fokontany_responsable', ['id' => $id]);
+                return $this->redirectToRoute('fokontany_responsable', ['id' => $fokontany->getId()]);
             }
 
         }
