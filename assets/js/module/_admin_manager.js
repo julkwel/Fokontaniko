@@ -33,6 +33,9 @@ const admin = {
         searchParent: () => {
             $('.select2-parent').select2({
                 tags: true,
+                theme: 'bootstrap4',
+                language: 'fr',
+                minimumInputLength: 2,
                 ajax: {
                     method: 'GET',
                     dataType: 'json',

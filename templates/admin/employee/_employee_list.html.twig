@@ -3,7 +3,10 @@
 {% block content %}
     <div class="card">
         <div class="d-block w-100 text-right">
-            <a href="{{ path('employee_manage') }}" class="btn btn-sm btn-primary m-2">Hampiditra olona <i class="ti-plus"></i></a>
+            <a href="{{ path('employee_manage') }}" class="btn btn-sm btn-primary m-2">
+                <span>Hampiditra mpiasa</span>
+                <i class="ti-plus"></i>
+            </a>
         </div>
         <div class="card-body">
             <ul class="list-group mt-2">
@@ -23,7 +26,13 @@
                                    target="_blank"
                                    href="{{ path('generate_qr_employee',{"id": employe.id }) }}">
                                     <span>QR CODE</span>
-                                    <i class="ti-pencil"></i>
+                                    <i class="ti-credit-card"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger btn-confirm"
+                                   target="_blank"
+                                   href="{{ path('remove_employee',{"id": employe.id}) }}">
+                                    <span>HAMAFA</span>
+                                    <i class="ti-trash"></i>
                                 </a>
                             </div>
                         </div>

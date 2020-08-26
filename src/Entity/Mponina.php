@@ -9,6 +9,7 @@ namespace App\Entity;
 
 use App\Repository\MponinaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -22,6 +23,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Mponina
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @var UuidInterface
@@ -77,11 +79,6 @@ class Mponina
      * @ORM\ManyToOne(targetEntity=Fokontany::class, inversedBy="mponinas")
      */
     private $fokontany;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * @var string|null
@@ -307,26 +304,6 @@ class Mponina
     public function setFokontany(?Fokontany $fokontany): self
     {
         $this->fokontany = $fokontany;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * @param mixed $deletedAt
-     *
-     * @return Mponina
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
 
         return $this;
     }

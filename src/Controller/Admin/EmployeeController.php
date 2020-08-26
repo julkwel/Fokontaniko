@@ -21,6 +21,7 @@ use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -109,6 +110,50 @@ class EmployeeController extends AbstractBaseController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/remove/employee/{id}", name="remove_employee")
+     *
+     * @param Employee $employee
+     *
+     * @return RedirectResponse
+     */
+    public function removeUser(Employee $employee)
+    {
+        try {
+            $this->entityManager->remove($employee);
+            $this->entityManager->flush();
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovàna');
+
+            return $this->redirectToRoute('list_employee');
+        } catch (\Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
+
+            return $this->redirectToRoute('list_employee');
+        }
+    }
+
+    /**
+     * @Route("/die/employee/{id}", name="die_employee")
+     *
+     * @param Employee $employee
+     *
+     * @return RedirectResponse
+     */
+    public function onEmployeeDie(Employee $employee)
+    {
+        try {
+            $employee->setIsAlive(false);
+            $this->entityManager->flush();
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovàna');
+
+            return $this->redirectToRoute('list_employee');
+        } catch (\Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
+
+            return $this->redirectToRoute('list_employee');
+        }
     }
 
     /**

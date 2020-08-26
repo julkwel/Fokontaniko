@@ -99,6 +99,30 @@ class MponinaController extends AbstractBaseController
         return $this->render('admin/mponina/_mponina_form.html.twig', ['form' => $form->createView()]);
     }
 
+
+    /**
+     * @Route("/die/{id?}", name="die_mponina")
+     *
+     * @param Mponina $mponina
+     *
+     * @return RedirectResponse
+     */
+    public function onMponinaDie(Mponina $mponina)
+    {
+        $mponina->setIsAlive(false);
+        $this->entityManager->flush();
+
+        try {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, sprintf('Voafafa tao amin\'ny lisitrin\'ny mponina i %s ', $mponina->getFirstName()));
+
+            return $this->redirectToRoute('mponina_list');
+        } catch (Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, sprintf('Misy olana ny fokontaniko'));
+
+            return $this->redirectToRoute('mponina_list');
+        }
+    }
+
     /**
      * @Route("/remove/{id?}", name="remove_mponina")
      *
@@ -111,14 +135,15 @@ class MponinaController extends AbstractBaseController
         $this->entityManager->remove($mponina);
         $this->entityManager->flush();
 
-        if (($mponina)) {
+        try {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, sprintf('Voafafa tao amin\'ny lisitrin\'ny mponina i %s ', $mponina->getFirstName()));
 
             return $this->redirectToRoute('mponina_list');
-        }
-        $this->addFlash(MessageConstant::ERROR_TYPE, sprintf('Misy olana ny fokontaniko'));
+        } catch (Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, sprintf('Misy olana ny fokontaniko'));
 
-        return $this->redirectToRoute('mponina_list');
+            return $this->redirectToRoute('mponina_list');
+        }
     }
 
     /**

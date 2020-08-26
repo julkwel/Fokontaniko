@@ -11,17 +11,22 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class User implements UserInterface
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @var UuidInterface

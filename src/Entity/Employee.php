@@ -9,16 +9,21 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Employee
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @var UuidInterface
@@ -56,6 +61,13 @@ class Employee
      * @ORM\ManyToOne(targetEntity=Fokontany::class, inversedBy="responsables")
      */
     private $fokontany;
+
+    /**
+     * @var boolean|null
+     *
+     *                  @ORM\Column(type="boolean",options={"default":true})
+     */
+    private $isAlive;
 
     /**
      * @return UuidInterface|null
@@ -161,6 +173,26 @@ class Employee
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsAlive(): ?bool
+    {
+        return $this->isAlive;
+    }
+
+    /**
+     * @param bool|null $isAlive
+     *
+     * @return Employee
+     */
+    public function setIsAlive(?bool $isAlive): Employee
+    {
+        $this->isAlive = $isAlive;
 
         return $this;
     }

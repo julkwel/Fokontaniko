@@ -93,7 +93,7 @@ class UserController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->userManager->handleUserBeforePersist($form, $user, $this->getUser(), true);
-            if ($request->get('type')){
+            if ($request->get('type')) {
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
@@ -112,7 +112,7 @@ class UserController extends AbstractBaseController
     }
 
     /**
-     * @Route("/remove/{id}", name="user_die", methods={"POST","GET"})
+     * @Route("/die/{id}", name="user_die", methods={"POST","GET"})
      *
      * @ParamDecryptor(params={"id"})
      *
@@ -120,7 +120,7 @@ class UserController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function removeUser(User $user)
+    public function onUserDie(User $user)
     {
         $user->setIsAlive(false);
 
@@ -163,5 +163,27 @@ class UserController extends AbstractBaseController
         $data = $this->repository->findAdmin($query);
 
         return $this->json($data);
+    }
+
+    /**
+     * @Route("/remove/user/{id}", name="remove_user")
+     *
+     * @param User $user
+     *
+     * @return RedirectResponse
+     */
+    public function removeUser(User $user)
+    {
+        try {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovàna');
+
+            return $this->redirectToRoute('list_user');
+        } catch (\Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
+
+            return $this->redirectToRoute('list_user');
+        }
     }
 }

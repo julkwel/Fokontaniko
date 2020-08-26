@@ -39,8 +39,11 @@ class EmployeeRepository extends ServiceEntityRepository
     public function findAllEmployee(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('e')
+            ->where('e.deletedAt IS NULL')
             ->andWhere('e.fokontany = :fokontany')
-            ->setParameter('fokontany', $fokontany);
+            ->andWhere('e.isAlive = :isAlive')
+            ->setParameter('fokontany', $fokontany)
+            ->setParameter('isAlive', true);
 
         return $qb->getQuery();
     }

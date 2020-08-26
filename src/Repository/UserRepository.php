@@ -44,8 +44,10 @@ class UserRepository extends ServiceEntityRepository
     public function getTotalUser(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('u')
-            ->andWhere('u.fokontany = :fokontany')
+            ->andWhere('u.deletedAt IS NULL AND u.fokontany = :fokontany')
+            ->andWhere('u.isAlive = :isAlive')
             ->setParameter('fokontany', $fokontany)
+            ->setParameter('isAlive', true)
             ->select('count(u.id)');
 
         return $qb->getQuery()->getSingleScalarResult();
@@ -62,8 +64,10 @@ class UserRepository extends ServiceEntityRepository
     public function getTotalEmployee(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :role')
+            ->where('u.deletedAt IS NULL AND u.roles LIKE :role')
             ->andWhere('u.fokontany = :fokontany')
+            ->andWhere('u.isAlive = :isAlive')
+            ->setParameter('isAlive', true)
             ->setParameter('fokontany', $fokontany)
             ->setParameter('role', '%ROLE_EM_FKT%')
             ->select('count(u.id)');
@@ -79,8 +83,10 @@ class UserRepository extends ServiceEntityRepository
     public function findPublic(?Fokontany $fokontany)
     {
         $qb = $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :roles')
+            ->where('u.deletedAt IS NULL AND u.roles LIKE :roles')
             ->andWhere('u.fokontany = :fokontany')
+            ->andWhere('u.isAlive = :isAlive')
+            ->setParameter('isAlive', true)
             ->setParameter('fokontany', $fokontany)
             ->setParameter('roles', '%ROLE_USER%');
 
@@ -96,7 +102,9 @@ class UserRepository extends ServiceEntityRepository
     public function findAdmin(string $needle)
     {
         $qb = $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :roles AND u.userName LIKE :needle')
+            ->where('u.deletedAt IS NULL AND u.roles LIKE :roles AND u.userName LIKE :needle')
+            ->andWhere('u.isAlive = :isAlive')
+            ->setParameter('isAlive', true)
             ->setParameter('needle', '%'.$needle.'%')
             ->setParameter('roles', '%ROLE_ADMIN%');
 
