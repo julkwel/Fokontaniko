@@ -131,7 +131,7 @@ class MponinaController extends AbstractBaseController
     public function findParentAjaxData(Request $request)
     {
         $needle = $request->get('search');
-        $data = $this->mponinaRepository->findParent($needle);
+        $data = $this->mponinaRepository->findParent($this->getUser()->getFokontany(), $needle);
 
         return $this->json($data);
     }

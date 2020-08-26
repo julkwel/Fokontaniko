@@ -64,12 +64,12 @@ class Mponina
     private $function;
 
     /**
-     * @ORM\OneToOne(targetEntity=Mponina::class)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $dad;
 
     /**
-     * @ORM\OneToOne(targetEntity=Mponina::class)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $mum;
 
@@ -123,19 +123,19 @@ class Mponina
     }
 
     /**
-     * @return Mponina|null
+     * @return string|null
      */
-    public function getDad(): ?Mponina
+    public function getDad(): ?string
     {
         return $this->dad;
     }
 
     /**
-     * @param Mponina|null $dad
+     * @param string|null $dad
      *
-     * @return $this
+     * @return Mponina
      */
-    public function setDad(?Mponina $dad): self
+    public function setDad(?string $dad): self
     {
         $this->dad = $dad;
 
@@ -143,19 +143,19 @@ class Mponina
     }
 
     /**
-     * @return Mponina|null
+     * @return string|null
      */
-    public function getMum(): ?Mponina
+    public function getMum(): ?string
     {
         return $this->mum;
     }
 
     /**
-     * @param Mponina|null $mum
+     * @param string|null $mum
      *
-     * @return $this
+     * @return Mponina
      */
-    public function setMum(?Mponina $mum): self
+    public function setMum(?string $mum): self
     {
         $this->mum = $mum;
 

@@ -32,7 +32,7 @@ const admin = {
 
         searchParent: () => {
             $('.select2-parent').select2({
-                tag: true,
+                tags: true,
                 ajax: {
                     method: 'GET',
                     dataType: 'json',

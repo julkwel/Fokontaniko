@@ -9,12 +9,13 @@ namespace App\Form;
 
 use App\Constant\MponinaConstant;
 use App\Entity\Mponina;
-use App\Form\Transformer\MponinaTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -22,19 +23,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class MponinaType extends AbstractType
 {
-    /** @var MponinaTransformer */
-    private $mponinaTransformer;
-
-    /**
-     * MponinaType constructor.
-     *
-     * @param MponinaTransformer $mponinaTransformer
-     */
-    public function __construct(MponinaTransformer $mponinaTransformer)
-    {
-        $this->mponinaTransformer = $mponinaTransformer;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -79,28 +67,6 @@ class MponinaType extends AbstractType
                 ]
             )
             ->add(
-                'dad',
-                ChoiceType::class,
-                [
-                    'label' => 'Ray niteraka',
-                    'required' => false,
-                    'attr' => [
-                        'class' => 'select2-parent'
-                    ]
-                ]
-            )
-            ->add(
-                'mum',
-                ChoiceType::class,
-                [
-                    'label' => 'Reny niteraka',
-                    'required' => false,
-                    'attr' => [
-                        'class' => 'select2-parent'
-                    ]
-                ]
-            )
-            ->add(
                 'cin',
                 TextType::class,
                 [
@@ -123,11 +89,49 @@ class MponinaType extends AbstractType
                     'label' => 'Fifandraisana',
                     'required' => false,
                 ]
-            )
-        ;
+            );
 
-        $builder->get('dad')->addModelTransformer($this->mponinaTransformer);
-        $builder->get('mum')->addModelTransformer($this->mponinaTransformer);
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            /** @var Mponina $data */
+            $data = $event->getData();
+            $form = $event->getForm();
+
+            $form->add(
+                'dad',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        $data->getDad() => $data->getDad(),
+                    ],
+                    'attr' => [
+                        'class' => 'select2-parent',
+                    ],
+                ]
+            );
+            $form->add(
+                'mum',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        $data->getMum() => $data->getMum(),
+                    ],
+                    'attr' => [
+                        'class' => 'select2-parent',
+                    ],
+                ]
+            );
+        });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $events) {
+            $data = $events->getData();
+            $form = $events->getForm();
+
+            $form->remove('dad');
+            $form->remove('mum');
+
+            $form->add('dad', ChoiceType::class, ['choices' => [$data['dad'] => $data['dad']]]);
+            $form->add('mum', ChoiceType::class, ['choices' => [$data['mum'] => $data['mum']]]);
+        });
     }
 
     /**
