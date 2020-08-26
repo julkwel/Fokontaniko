@@ -31,10 +31,16 @@ class FokontanyRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string|null $needle
+     *
      * @return Query
      */
-    public function findAllFokontany()
+    public function findAllFokontany(?string $needle = '')
     {
-        return $this->createQueryBuilder('f')->getQuery();
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.deletedAt IS NULL')
+            ->andWhere('f.name LIKE :needle OR f.codeFkt LIKE :needle')
+            ->setParameter('needle','%'.$needle.'%')
+            ->getQuery();
     }
 }

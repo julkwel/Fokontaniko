@@ -1,25 +1,42 @@
 {% extends 'admin/_index_admin.html.twig' %}
 {% set menu_fokontany = true %}
+{% set search_input = true %}
 {% block content %}
     <div class="card">
         <div class="d-block w-100 text-right">
-            <a href="{{ path('fokontany_manage') }}" class="btn btn-sm m-2 btn-primary">Hampiditra fokontany <i  class="ti-plus"></i></a>
+            <a href="{{ path('fokontany_manage') }}" class="btn btn-sm m-2 btn-primary">Hampiditra fokontany <i
+                        class="ti-plus"></i></a>
         </div>
         <div class="card-body">
             <ul class="list-group mt-2">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-3">Anaran'ny fokontany</div>
+                        <div class="col-md-3">Kaodin'ny fokontany</div>
+                        <div class="col-md-3">Kirakira</div>
+                    </div>
+                </li>
                 {% for fokontany in fokontanys %}
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-3">{{ fokontany.name }}</div>
                             <div class="col-md-3">{{ fokontany.codeFkt }}</div>
                             <div class="col-md-3">
-                                <a class="btn btn-sm btn-success" href="{{ path('fokontany_manage',{"id": fokontany.id}) }}">
+                                <a class="btn btn-sm btn-success"
+                                   href="{{ path('fokontany_manage',{"id": fokontany.id}) }}">
                                     <span>Hanova</span>
                                     <i class="ti-pencil"></i>
                                 </a>
-                                <a  class="btn btn-sm btn-secondary" href="{{ path('fokontany_responsable',{"id":fokontany.id}) }}">
+                                <a class="btn btn-sm btn-secondary"
+                                   href="{{ path('fokontany_responsable',{"id":fokontany.id}) }}">
                                     <span>Mpiandraikitra</span>
                                     <i class="fa fa-user-secret"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger btn-confirm"
+                                   data-msg="fokontany : {{ fokontany.name }}"
+                                   href="{{ path('remove_fokontany',{"id":fokontany.id}) }}">
+                                    <span>Hamafa</span>
+                                    <i class="fa fa-trash"></i>
                                 </a>
                             </div>
                         </div>

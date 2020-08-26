@@ -11,16 +11,21 @@ use App\Repository\FokontanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=FokontanyRepository::class)
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Fokontany
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @var UuidInterface
@@ -74,9 +79,9 @@ class Fokontany
     }
 
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }

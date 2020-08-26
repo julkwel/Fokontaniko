@@ -115,9 +115,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }

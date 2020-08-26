@@ -40,26 +40,30 @@ class Adidy
     private $type;
 
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param UuidInterface $id
-     */
-    public function setId(UuidInterface $id): void
-    {
-        $this->id = $id;
-    }
-
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPaid;
+
+    /**
+     * Adidy constructor.
+     */
+    public function __construct()
+    {
+        $this->isPaid = false;
+    }
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getId(): ?UuidInterface
+    {
+        return $this->id;
+    }
 
     /**
      * @return string|null
@@ -117,6 +121,18 @@ class Adidy
     public function setAmount(string $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }

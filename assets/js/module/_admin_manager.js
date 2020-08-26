@@ -5,12 +5,12 @@ const admin = {
         confirmOnDelete: () => {
             $('.btn-confirm').on('click', function (evt) {
                 let link = $(this).attr('href');
-                let user = $(this).data('user');
+                let msg = $(this).data('msg');
 
                 evt.preventDefault();
 
                 bootbox.confirm({
-                    message: "Tena hofafanao tokoa ve i " + user,
+                    message: `Tena hofafanao tokoa ve ${msg} ?`,
                     buttons: {
                         confirm: {
                             label: 'Eny',

@@ -86,13 +86,37 @@ class FokontanyController extends AbstractBaseController
      */
     public function fokontanyList(Request $request)
     {
+        $needle = $request->get('search');
         $pagination = $this->paginator->paginate(
-            $this->repository->findAllFokontany(),
+            $this->repository->findAllFokontany($needle),
             $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
             PageConstant::DEFAULT_NUMBER_PER_PAGE
         );
 
         return $this->render('admin/fokontany/_fokontany_list.html.twig', ['fokontanys' => $pagination]);
+    }
+
+    /**
+     * @Route("/remove/{id}", name="remove_fokontany")
+     *
+     * @param Fokontany $fokontany
+     *
+     * @return RedirectResponse
+     */
+    public function removeFokontany(Fokontany $fokontany)
+    {
+        try {
+            $this->entityManager->remove($fokontany);
+            $this->entityManager->flush();
+
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovana');
+
+            return $this->redirectToRoute('fokontany_list');
+        } catch (\Exception $exception) {
+            $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
+
+            return $this->redirectToRoute('fokontany_list');
+        }
     }
 
     /**
