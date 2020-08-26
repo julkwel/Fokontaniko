@@ -56,7 +56,4 @@ const admin = {
     },
 };
 
-$(document).ready(function () {
-    admin.action.confirmOnDelete();
-    admin.action.searchParent();
-});
+export default admin;

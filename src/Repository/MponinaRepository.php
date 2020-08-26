@@ -35,15 +35,19 @@ class MponinaRepository extends ServiceEntityRepository
 
     /**
      * @param Fokontany|null $fokontany
+     * @param string|null    $needle
      *
      * @return Query
      */
-    public function findByFokontany(?Fokontany $fokontany)
+    public function findByFokontany(?Fokontany $fokontany, ?string $needle = '')
     {
         $qb = $this->createQueryBuilder('m')
-            ->where('m.deletedAt IS NULL')
+            ->where('m.deletedAt IS NULL AND (m.firstName LIKE :needle OR m.lastName LIKE :needle)')
             ->andWhere('m.fokontany = :fokontany')
-            ->setParameter('fokontany', $fokontany);
+            ->andWhere('m.isAlive = :isAlive')
+            ->setParameter('fokontany', $fokontany)
+            ->setParameter('isAlive', true)
+            ->setParameter('needle', '%'.$needle.'%');
 
         return $qb->getQuery();
     }

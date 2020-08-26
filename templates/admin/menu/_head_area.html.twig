@@ -40,9 +40,9 @@
             <!-- nav and search button -->
             <div class="col-lg-3 clearfix">
                 <div class="search-box">
-                    <form action="#">
-                        <input type="text" name="search" placeholder="Search..." required>
-                        <i class="ti-search"></i>
+                    <form action="{{ app.request.uri  }}" method="get">
+                        <input type="text" name="search" placeholder="Hitady ...">
+                        <button type="submit"><i class="ti-search"></i></button>
                     </form>
                 </div>
             </div>

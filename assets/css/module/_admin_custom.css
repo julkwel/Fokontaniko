@@ -1,15 +1,30 @@
-.bootbox .modal-footer{
+.bootbox .modal-footer {
     display: flex;
     text-align: center;
 }
 
-.bootbox .modal-body{
+.bootbox .modal-body {
     text-align: center;
 }
 
 .card-header {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
-     background-color: #ffffff;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.notification-area .dropdown-menu, .user-profile .dropdown-menu {
+    right: 0px !important;
+}
+
+.search-box form button {
+    position: absolute;
+    font-size: 14px;
+    border: none;
+}
+
+.search-box form i {
+    font-size: 14px;
+    color: #b1a7a7;
 }

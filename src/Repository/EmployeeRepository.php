@@ -9,6 +9,7 @@ namespace App\Repository;
 
 use App\Entity\Employee;
 use App\Entity\Fokontany;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,16 +34,19 @@ class EmployeeRepository extends ServiceEntityRepository
 
     /**
      * @param Fokontany|null $fokontany
+     * @param string|null    $needle
      *
      * @return Query
      */
-    public function findAllEmployee(?Fokontany $fokontany)
+    public function findAllEmployee(?Fokontany $fokontany, ?string $needle = '')
     {
         $qb = $this->createQueryBuilder('e')
-            ->where('e.deletedAt IS NULL')
+            ->innerJoin(User::class,'u')
+            ->where('e.deletedAt IS NULL AND (u.firstName LIKE :needle OR u.lastName LIKE :needle OR u.userName LIKE :needle OR u.cin LIKE :needle)')
             ->andWhere('e.fokontany = :fokontany')
             ->andWhere('e.isAlive = :isAlive')
             ->setParameter('fokontany', $fokontany)
+            ->setParameter('needle', '%'.$needle.'%')
             ->setParameter('isAlive', true);
 
         return $qb->getQuery();

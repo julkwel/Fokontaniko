@@ -45,6 +45,7 @@ class EmployeeType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Karama',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -52,6 +53,7 @@ class EmployeeType extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'Fanamarihana',
+                    'required' => false,
                 ]
             );
     }

@@ -65,7 +65,7 @@ class AbstractBaseController extends AbstractController
 
             return true;
         } catch (\Exception $exception) {
-            dd($exception);
+//            dd($exception);
             return false;
         }
     }

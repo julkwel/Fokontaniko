@@ -14,6 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
@@ -37,6 +38,8 @@ class Employee
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     *
+     * @Assert\Valid()
      */
     private $user;
 
@@ -65,9 +68,17 @@ class Employee
     /**
      * @var boolean|null
      *
-     *                  @ORM\Column(type="boolean",options={"default":true})
+     * @ORM\Column(type="boolean",options={"default":true})
      */
     private $isAlive;
+
+    /**
+     * Employee constructor.
+     */
+    public function __construct()
+    {
+        $this->isAlive = true;
+    }
 
     /**
      * @return UuidInterface|null

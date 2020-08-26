@@ -67,9 +67,9 @@ class EmployeeController extends AbstractBaseController
     public function listEmployee(Request $request, Fokontany $fokontany = null)
     {
         $fokontany = $fokontany ?? $this->getUser()->getFokontany();
-
+        $needle = $request->get('search');
         $pagination = $this->paginator->paginate(
-            $this->repository->findAllEmployee($fokontany),
+            $this->repository->findAllEmployee($fokontany, $needle),
             $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
             PageConstant::DEFAULT_NUMBER_PER_PAGE
         );
@@ -80,14 +80,14 @@ class EmployeeController extends AbstractBaseController
     /**
      * @Route("/manage/{id?}", name="employee_manage", methods={"POST","GET"})
      *
-     * @param Request     $request
-     * @param string|null $id
+     * @param Request       $request
+     * @param Employee|null $employee
      *
      * @return Response
      */
-    public function manageEmployee(Request $request, ?string $id = null)
+    public function manageEmployee(Request $request, Employee $employee = null)
     {
-        $employee = $this->repository->find($this->decryptThisId($id)) ?? new Employee();
+        $employee = $employee ?? new Employee();
         $form = $this->createForm(EmployeeType::class, $employee, ['onEdit' => $employee->getId()]);
         $form->handleRequest($request);
 

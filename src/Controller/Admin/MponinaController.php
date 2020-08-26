@@ -59,8 +59,9 @@ class MponinaController extends AbstractBaseController
      */
     public function listMponina(Request $request)
     {
+        $needle = $request->get('search');
         $pagination = $this->paginator->paginate(
-            $this->mponinaRepository->findByFokontany($this->getUser()->getFokontany()),
+            $this->mponinaRepository->findByFokontany($this->getUser()->getFokontany(), $needle),
             $request->query->getInt('page', PageConstant::DEFAULT_PAGE),
             PageConstant::DEFAULT_NUMBER_PER_PAGE
         );
