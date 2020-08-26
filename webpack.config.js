@@ -1,5 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
-
+var path = require('path');
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -52,18 +52,9 @@ Encore
         config.corejs = 3;
     })
     .configureUrlLoader({
-        fonts: { limit: 4096 },
-        images: { limit: 4096 }
+        fonts: {limit: 4096},
+        images: {limit: 4096}
     })
-
-    // enables Sass/SCSS support
-    //.enableSassLoader()
-
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
@@ -76,6 +67,26 @@ Encore
             'Routing': 'router'
         }
     )
+
+    .addLoader(
+        {
+            test: /jsrouting-bundle\/Resources\/public\/js\/router.min.js$/,
+            loader: 'exports-loader?router=window.Routing'
+        }
+    );
 ;
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+config.resolve.alias = {
+    '~': path.resolve(__dirname),
+    'assets': path.resolve(__dirname, 'assets'),
+    'theme': path.resolve(__dirname, 'assets/theme'),
+    'css': path.resolve(__dirname, 'assets/css'),
+    'js': path.resolve(__dirname, 'assets/js'),
+    'vendor': path.resolve(__dirname, 'vendor'),
+    'node_modules': path.resolve(__dirname, 'node_modules'),
+    'public': path.resolve(__dirname, 'public'),
+    'router': path.resolve(__dirname, 'assets/js/router.js')
+};
+
+module.exports = config;

@@ -20,6 +20,7 @@ use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,6 +119,21 @@ class MponinaController extends AbstractBaseController
         $this->addFlash(MessageConstant::ERROR_TYPE, sprintf('Misy olana ny fokontaniko'));
 
         return $this->redirectToRoute('mponina_list');
+    }
+
+    /**
+     * @Route("/parent/find", name="find_ajax_parent", options={"expose"=true}, methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function findParentAjaxData(Request $request)
+    {
+        $needle = $request->get('search');
+        $data = $this->mponinaRepository->findParent($needle);
+
+        return $this->json($data);
     }
 
     /**

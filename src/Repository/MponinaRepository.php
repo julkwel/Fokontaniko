@@ -66,4 +66,26 @@ class MponinaRepository extends ServiceEntityRepository
             ->getQuery()->getSingleScalarResult();
 
     }
+
+    /**
+     * @param string|null $needle
+     *
+     * @return array
+     */
+    public function findParent(?string $needle = '')
+    {
+        $pattern = '%'.$needle.'%';
+        $result = $this->createQueryBuilder('m')
+            ->where('m.firstName LIKE :firstname OR m.lastName LIKE :lastName')
+            ->setParameter('firstname', $pattern)
+            ->setParameter('lastName', $pattern)
+            ->getQuery()->execute();
+
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = ['id' => $value->getFullName(), 'text' => $value->getFullName()];
+        }
+
+        return $list;
+    }
 }

@@ -80,18 +80,24 @@ class MponinaType extends AbstractType
             )
             ->add(
                 'dad',
-                TextType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Ray niteraka',
                     'required' => false,
+                    'attr' => [
+                        'class' => 'select2-parent'
+                    ]
                 ]
             )
             ->add(
                 'mum',
-                TextType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Reny niteraka',
                     'required' => false,
+                    'attr' => [
+                        'class' => 'select2-parent'
+                    ]
                 ]
             )
             ->add(

@@ -28,10 +28,32 @@ const admin = {
                     }
                 })
             })
+        },
+
+        searchParent: () => {
+            $('.select2-parent').select2({
+                tag: true,
+                ajax: {
+                    method: 'GET',
+                    dataType: 'json',
+                    url: Routing.generate('find_ajax_parent'),
+                    data: function (params) {
+                        return {
+                            search: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
         }
     },
 };
 
 $(document).ready(function () {
     admin.action.confirmOnDelete();
+    admin.action.searchParent();
 });
