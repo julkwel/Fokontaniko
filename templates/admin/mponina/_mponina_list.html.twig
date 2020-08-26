@@ -11,19 +11,17 @@
             <ul class="list-group mt-2">
                 <li class="row">
                     <div class="col-md-3">Anarana</div>
-                    <div class="col-md-3">Fanampiny</div>
-                    <div class="col-md-2">Adiresy</div>
+                    <div class="col-md-3">Adiresy</div>
                     <div class="col-md-2">Fifandraisana</div>
-                    <div class="col-md-2">Kirakira</div>
+                    <div class="col-md-4">Kirakira</div>
                 </li>
                 {% for mponina in mponinas %}
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-3">{{ mponina.firstName }}</div>
-                            <div class="col-md-2">{{ mponina.lastName }}</div>
-                            <div class="col-md-2">{{ mponina.adresse }}</div>
+                            <div class="col-md-3">{{ mponina.fullname }}</div>
+                            <div class="col-md-3">{{ mponina.adresse }}</div>
                             <div class="col-md-2">{{ mponina.contact }}</div>
-                            <div class="col-md-3 text-center d-block row">
+                            <div class="col-md-4 text-center d-block row">
                                 <a class="btn btn-sm btn-success"
                                    href="{{ path('manage_mponina',{"id": mponina.id}) }}">
                                     <span>Hanova</span>
@@ -34,6 +32,12 @@
                                    href="{{ path('generate_qr_mponina',{"id": mponina.id}) }}">
                                     <span>Karatra</span>
                                     <i class="ti-credit-card"></i>
+                                </a>
+                                <a class="btn btn-sm btn-warning"
+                                   target="_blank"
+                                   href="{{ path('list_adidy',{"id": mponina.id}) }}">
+                                    <span>Adidy</span>
+                                    <i class="ti-money"></i>
                                 </a>
                                 <a class="btn btn-sm btn-danger btn-confirm"
                                    data-msg="{{ mponina.lastname }}"

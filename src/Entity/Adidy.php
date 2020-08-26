@@ -50,6 +50,16 @@ class Adidy
     private $isPaid;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Mponina::class, inversedBy="adidies")
+     */
+    private $user;
+
+    /**
      * Adidy constructor.
      */
     public function __construct()
@@ -133,6 +143,30 @@ class Adidy
     public function setIsPaid(bool $isPaid): self
     {
         $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    public function getUser(): ?Mponina
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Mponina $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

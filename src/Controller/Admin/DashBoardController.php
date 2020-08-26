@@ -21,6 +21,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class DashBoardController.
+ *
+ * @Route("/admin")
  */
 class DashBoardController extends AbstractBaseController
 {

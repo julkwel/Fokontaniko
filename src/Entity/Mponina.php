@@ -8,6 +8,8 @@
 namespace App\Entity;
 
 use App\Repository\MponinaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -103,12 +105,18 @@ class Mponina
     private $contact;
 
     /**
+     * @ORM\OneToMany(targetEntity=Adidy::class, mappedBy="user")
+     */
+    private $adidies;
+
+    /**
      * Mponina constructor.
      */
     public function __construct()
     {
         $this->isAlive = true;
         $this->isNew = true;
+        $this->adidies = new ArrayCollection();
     }
 
     /**
@@ -376,6 +384,37 @@ class Mponina
     public function setContact(?string $contact): self
     {
         $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adidy[]
+     */
+    public function getAdidies(): Collection
+    {
+        return $this->adidies;
+    }
+
+    public function addAdidy(Adidy $adidy): self
+    {
+        if (!$this->adidies->contains($adidy)) {
+            $this->adidies[] = $adidy;
+            $adidy->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdidy(Adidy $adidy): self
+    {
+        if ($this->adidies->contains($adidy)) {
+            $this->adidies->removeElement($adidy);
+            // set the owning side to null (unless already changed)
+            if ($adidy->getUser() === $this) {
+                $adidy->setUser(null);
+            }
+        }
 
         return $this;
     }
