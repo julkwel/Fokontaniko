@@ -109,7 +109,16 @@ class MponinaType extends AbstractType
                     'label' => 'Fanamarihana',
                     'required' => false,
                 ]
-            );
+            )
+            ->add(
+                'contact',
+                TextType::class,
+                [
+                    'label' => 'Fifandraisana',
+                    'required' => false,
+                ]
+            )
+        ;
 
         $builder->get('dad')->addModelTransformer($this->mponinaTransformer);
         $builder->get('mum')->addModelTransformer($this->mponinaTransformer);

@@ -10,10 +10,13 @@ namespace App\Controller\Admin;
 use App\Constant\MessageConstant;
 use App\Constant\PageConstant;
 use App\Controller\AbstractBaseController;
+use App\Entity\Employee;
 use App\Entity\Mponina;
 use App\Form\MponinaType;
 use App\Repository\MponinaRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Endroid\QrCode\Factory\QrCodeFactoryInterface;
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
@@ -115,5 +118,21 @@ class MponinaController extends AbstractBaseController
         $this->addFlash(MessageConstant::ERROR_TYPE, sprintf('Misy olana ny fokontaniko'));
 
         return $this->redirectToRoute('mponina_list');
+    }
+
+    /**
+     * @Route("/qr-code/{id}", name="generate_qr_mponina", methods={"POST","GET"})
+     *
+     * @param QrCodeFactoryInterface $qrCodeFactory
+     * @param Mponina                $mponina
+     *
+     * @return Response
+     */
+    public function generateQr(QrCodeFactoryInterface $qrCodeFactory, Mponina $mponina)
+    {
+        $data = $this->renderView('admin/mponina/_mponina_qr.html.twig', ['mponina' => $mponina]);
+        $qrCode = $qrCodeFactory->create($data);
+
+        return new QrCodeResponse($qrCode);
     }
 }

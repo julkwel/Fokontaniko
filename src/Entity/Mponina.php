@@ -101,6 +101,11 @@ class Mponina
     private $cin;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $contact;
+
+    /**
      * Mponina constructor.
      */
     public function __construct()
@@ -195,6 +200,14 @@ class Mponina
         $this->lastName = $lastName;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): ?string
+    {
+        return $this->firstName.' '.$this->lastName;
     }
 
     /**
@@ -374,6 +387,18 @@ class Mponina
     public function setCin(?string $cin): self
     {
         $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?string $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }
