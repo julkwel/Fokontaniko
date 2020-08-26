@@ -39,12 +39,14 @@
             </div>
             <!-- nav and search button -->
             <div class="col-lg-3 clearfix">
-                <div class="search-box">
-                    <form action="{{ app.request.uri  }}" method="get">
-                        <input type="text" name="search" placeholder="Hitady ...">
-                        <button type="submit"><i class="ti-search"></i></button>
-                    </form>
-                </div>
+                {% if search_input is defined %}
+                    <div class="search-box">
+                        <form action="{{ app.request.uri }}" method="get">
+                            <input type="text" name="search" placeholder="Hitady ...">
+                            <button type="submit"><i class="ti-search"></i></button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
             <!-- mobile_menu -->
             <div class="col-12 d-block d-lg-none">
