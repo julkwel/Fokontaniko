@@ -47,7 +47,9 @@ class MponinaRepository extends ServiceEntityRepository
             ->andWhere('m.isAlive = :isAlive')
             ->setParameter('fokontany', $fokontany)
             ->setParameter('isAlive', true)
-            ->setParameter('needle', '%'.$needle.'%');
+            ->setParameter('needle', '%'.$needle.'%')
+            ->addOrderBy('m.updatedAt','DESC')
+        ;
 
         return $qb->getQuery();
     }
