@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HistoryController extends AbstractBaseController
 {
     /**
-     * @Route("/history/list")
+     * @Route("/history/list", name="history_list" ,options={"expose"=true})
      *
      * @param Request           $request
      * @param HistoryRepository $historyRepository

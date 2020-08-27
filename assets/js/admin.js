@@ -18,6 +18,7 @@ $(document).ready(function () {
     admin.action.confirmOnDelete();
     admin.action.searchParent();
     admin.auto.switchMode();
+    admin.auto.scrolling();
 });
 
 

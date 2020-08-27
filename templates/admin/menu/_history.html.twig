@@ -6,7 +6,7 @@
     </ul>
     <div class="offset-content tab-content">
         <div id="activity" class="tab-pane fade in show active">
-            <div class="recent-activity" style="overflow-y: scroll">
+            <div class="recent-activity" id="recent-activity" style="overflow-y: scroll">
                 {{ render(controller('App\\Controller\\Admin\\HistoryController::historyList')) }}
             </div>
         </div>

@@ -70,6 +70,17 @@ const admin = {
                     }
                 });
             })
+        },
+
+        scrolling: () => {
+            let elm = document.getElementById('recent-activity');
+            elm.onscroll = function () {
+                if (elm.scrollTop + elm.clientHeight === elm.scrollHeight) {
+                    admin.asynchronious.historyScroll(page).then(res => {
+                        $('.recent-activity').append(res.data);
+                    });
+                }
+            }
         }
     },
 
@@ -79,6 +90,10 @@ const admin = {
                 return Axios.post(Routing.generate('switch_mode', {user: user}));
             }
             return Promise.reject(new Error('andramo indray'));
+        },
+
+        historyScroll: (page = 0) => {
+            return Axios.get(Routing.generate('history_list', {page: page}));
         }
     }
 };

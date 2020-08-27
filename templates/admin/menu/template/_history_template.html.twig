@@ -16,7 +16,11 @@
             <span class="time"><i class="ti-time"></i>{{ history.updatedAt|date('H:i') }}</span>
         </div>
         <p>{{ history.action }}</p>
+
+        <div id='more' style="display: none;color:#ccc"><h3>Loading...</h3></div>
+        <div id='no-more' style="display: none;color:#ccc"><h3>No more results</h3></div>
     </div>
 {% endfor %}
-
-{{ knp_pagination_render(historys) }}
+<script>
+   var page = {{ historys.currentPageNumber + 1}};
+</script>
