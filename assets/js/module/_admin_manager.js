@@ -1,4 +1,5 @@
 import bootbox from 'bootbox';
+import Axios from "axios";
 
 const admin = {
     action: {
@@ -54,6 +55,32 @@ const admin = {
             });
         }
     },
+
+    auto: {
+        switchMode: () => {
+            $('.switch-mode').on('change', function (evt) {
+                evt.preventDefault();
+                let user = $(this).data('user');
+                admin.asynchronious.theming(user).then(res => {
+                    let element = document.body;
+                    if (res.data.theme === 1) {
+                        element.classList.toggle("dark-mode");
+                    } else {
+                        element.classList.remove("dark-mode");
+                    }
+                });
+            })
+        }
+    },
+
+    asynchronious: {
+        theming: (user = null) => {
+            if (user) {
+                return Axios.post(Routing.generate('switch_mode', {user: user}));
+            }
+            return Promise.reject(new Error('andramo indray'));
+        }
+    }
 };
 
 export default admin;

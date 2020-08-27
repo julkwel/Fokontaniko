@@ -186,4 +186,23 @@ class UserController extends AbstractBaseController
             return $this->redirectToRoute('list_user');
         }
     }
+
+    /**
+     * @Route("/switch/theme/{user}", name="switch_mode", options={"expose"=true})
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function switchMode(User $user)
+    {
+        try {
+            $user->switchTheme();
+            $this->entityManager->flush();
+
+            return $this->json(['message' => 'success', 'theme' => $user->getTheme()]);
+        } catch (\Exception $exception) {
+            return $this->json(['message' => '']);
+        }
+    }
 }

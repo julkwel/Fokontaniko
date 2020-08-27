@@ -1,0 +1,25 @@
+.dark-mode .horizontal-menu ul li a {
+    display: block;
+    font-size: 13px;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-transform: capitalize;
+}
+
+.dark-mode {
+    background: #3c3838;
+}
+
+.dark-mode .mainheader-area {
+    background: #3c3838;
+    border-bottom: 1px solid #3c3838;
+    padding-left: 15px;
+    position: relative;
+    z-index: 99;
+}
+
+.dark-mode .header-area {
+    padding: 15px 30px;
+    background: #3c3838;
+    border-bottom: 1px solid #3c3838;
+}

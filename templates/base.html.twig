@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Fokontaniko | {% block title %}Tongasoa{% endblock %}</title>
-        <link rel="icon" href="{{ asset('images/icon.png') }}">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body class="body-bg">
-        <!-- preloader area start -->
-        {% block loader %}
-            <div id="preloader">
-                <div class="loader"></div>
-            </div>
-        {% endblock %}
-        <!-- preloader area end -->
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="mg">
+<head>
+    <meta charset="UTF-8">
+    <title>Fokontaniko | {% block title %}Tongasoa{% endblock %}</title>
+    <link rel="icon" href="{{ asset('images/icon.png') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="body-bg {% if app.user is not null and app.user.theme == 1 %}dark-mode{% endif %}">
+<!-- preloader area start -->
+{% block loader %}
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+{% endblock %}
+<!-- preloader area end -->
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>

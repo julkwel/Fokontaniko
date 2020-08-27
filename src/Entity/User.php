@@ -7,6 +7,7 @@
 
 namespace App\Entity;
 
+use App\Constant\GlobalConstant;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -106,12 +107,18 @@ class User implements UserInterface
     private $histories;
 
     /**
+     * @ORM\Column(type="integer", length=1)
+     */
+    private $theme;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->isAlive = true;
         $this->histories = new ArrayCollection();
+        $this->theme = array_flip(GlobalConstant::THEME)['Light'];
     }
 
     /**
@@ -371,6 +378,11 @@ class User implements UserInterface
         return $this->histories;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return $this
+     */
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
@@ -381,6 +393,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return $this
+     */
     public function removeHistory(History $history): self
     {
         if ($this->histories->contains($history)) {
@@ -392,5 +409,37 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTheme(): ?int
+    {
+        return $this->theme;
+    }
+
+    /**
+     * @param int|null $theme
+     *
+     * @return $this
+     */
+    public function setTheme(?int $theme): self
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function switchTheme()
+    {
+        if ($this->theme === array_flip(GlobalConstant::THEME)['Light']) {
+            return $this->theme = array_flip(GlobalConstant::THEME)['Dark'];
+        }
+
+        return $this->theme = array_flip(GlobalConstant::THEME)['Light'];
     }
 }

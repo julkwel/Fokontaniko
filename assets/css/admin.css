@@ -10,3 +10,4 @@
 @import '~select2';
 @import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
 @import './module/_admin_custom.css';
+@import '../vendor/css/_dark_them.css';

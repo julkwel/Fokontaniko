@@ -24,4 +24,9 @@ class GlobalConstant
         11 => 'Novambra',
         12 => 'Desambra',
     ];
+
+    public const THEME = [
+        1 => 'Dark',
+        2 => 'Light',
+    ];
 }

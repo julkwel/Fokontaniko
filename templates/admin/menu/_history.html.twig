@@ -16,53 +16,16 @@
                 <div class="settings-list">
                     <div class="s-settings">
                         <div class="s-sw-title">
-                            <h5>Notifications</h5>
+                            <h5>Dark Mode</h5>
                             <div class="s-swtich">
-                                <input type="checkbox" id="switch1"/>
+                                <input type="checkbox" data-user="{{ app.user ? app.user.id : '' }}"
+                                        {% if app.user is not null and app.user.theme == 1 %} checked{% endif %}
+                                       class="switch-mode"
+                                       id="switch1"/>
                                 <label for="switch1">Toggle</label>
                             </div>
                         </div>
-                        <p>Keep it 'On' When you want to get all the notification.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show recent activity</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch2"/>
-                                <label for="switch2">Toggle</label>
-                            </div>
-                        </div>
-                        <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show your emails</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch3"/>
-                                <label for="switch3">Toggle</label>
-                            </div>
-                        </div>
-                        <p>Show email so that easily find you.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Show Task statistics</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch4"/>
-                                <label for="switch4">Toggle</label>
-                            </div>
-                        </div>
-                        <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
-                    </div>
-                    <div class="s-settings">
-                        <div class="s-sw-title">
-                            <h5>Notifications</h5>
-                            <div class="s-swtich">
-                                <input type="checkbox" id="switch5"/>
-                                <label for="switch5">Toggle</label>
-                            </div>
-                        </div>
-                        <p>Use checkboxes when looking for yes or no answers.</p>
+                        <p>Tsapanao ve fa mankarary maso ilay fotsy loatra ? tsindrio eto.</p>
                     </div>
                 </div>
             </div>
