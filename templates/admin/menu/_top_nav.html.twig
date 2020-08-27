@@ -4,7 +4,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="#">
+                    <a href="{{ path('dashboard_home') }}">
                         <span class="display-4">FOKONTANIKO</span>
                     </a>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="user-profile m-0">
                         <img class="avatar user-thumb" src="{{ asset('images/hero-img.png') }}" alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                            {{ app.user ? app.user.userName : 'Fokontany' }}
+                            {{ app.user ? app.user.firstName : 'Fokontany' }}
                             <i class="fa fa-angle-down"></i>
                         </h4>
                         <div class="dropdown-menu text-center">
