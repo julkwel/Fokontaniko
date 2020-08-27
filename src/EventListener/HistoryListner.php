@@ -42,21 +42,23 @@ class HistoryListner
             return;
         }
 
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-        $history = new History();
+        if ($this->tokenStorage->getToken()){
+            /** @var User $user */
+            $user = $this->tokenStorage->getToken()->getUser();
+            $history = new History();
 
-        $action = sprintf('Nampiditra an\'i %s i %s', $entity->getFirstName(), $user->getUsername());
-        $history->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Add']);
+            $action = sprintf('Nampiditra an\'i %s i %s', $entity->getFirstName(), $user->getUsername());
+            $history->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Add']);
 
-        $entityManager = $args->getObjectManager();
-        $history
-            ->setFokontany($user->getFokontany())
-            ->setUser($user)
-            ->setAction($action);
+            $entityManager = $args->getObjectManager();
+            $history
+                ->setFokontany($user->getFokontany())
+                ->setUser($user)
+                ->setAction($action);
 
-        $entityManager->persist($history);
-        $entityManager->flush($history);
+            $entityManager->persist($history);
+            $entityManager->flush($history);
+        }
     }
 
     /**
@@ -69,20 +71,22 @@ class HistoryListner
             return;
         }
 
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-        $history = new History();
+        if ($this->tokenStorage->getToken()){
+            /** @var User $user */
+            $user = $this->tokenStorage->getToken()->getUser();
+            $history = new History();
 
-        $action = sprintf('Nanova an\'i %s i %s', $entity->getFirstName(), $user->getUsername());
-        $entityManager = $args->getObjectManager();
-        $history
-            ->setFokontany($user->getFokontany())
-            ->setUser($user)
-            ->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Edit'])
-            ->setAction($action);
+            $action = sprintf('Nanova an\'i %s i %s', $entity->getFirstName(), $user->getUsername());
+            $entityManager = $args->getObjectManager();
+            $history
+                ->setFokontany($user->getFokontany())
+                ->setUser($user)
+                ->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Edit'])
+                ->setAction($action);
 
-        $entityManager->persist($history);
-        $entityManager->flush($history);
+            $entityManager->persist($history);
+            $entityManager->flush($history);
+        }
     }
 
     /**
@@ -95,19 +99,21 @@ class HistoryListner
             return;
         }
 
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-        $action = sprintf('Nofafan\'i %s i %s', $user->getUsername(), $entity->getFirstName());
+        if ($this->tokenStorage->getToken()){
+            /** @var User $user */
+            $user = $this->tokenStorage->getToken()->getUser();
+            $action = sprintf('Nofafan\'i %s i %s', $user->getUsername(), $entity->getFirstName());
 
-        $entityManager = $args->getObjectManager();
-        $history = new History();
-        $history
-            ->setFokontany($user->getFokontany())
-            ->setUser($user)
-            ->setAction($action)
-            ->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Delete']);
+            $entityManager = $args->getObjectManager();
+            $history = new History();
+            $history
+                ->setFokontany($user->getFokontany())
+                ->setUser($user)
+                ->setAction($action)
+                ->setType(array_flip(HistoryConstant::HISTORY_TYPE)['Delete']);
 
-        $entityManager->persist($history);
-        $entityManager->flush($history);
+            $entityManager->persist($history);
+            $entityManager->flush($history);
+        }
     }
 }

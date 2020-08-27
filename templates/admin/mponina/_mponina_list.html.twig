@@ -4,7 +4,8 @@
 {% block content %}
     <div class="card">
         <div class="d-block w-100 text-right">
-            <a href="{{ path('manage_mponina') }}" class="btn btn-sm m-2 btn-primary">Hampiditra olona vaovao
+            <a href="{{ path('manage_mponina') }}" class="btn btn-sm m-2 btn-primary">
+                <span>Hampiditra olona vaovao</span>
                 <i class="ti-plus"></i></a>
         </div>
         <div class="card-body">
@@ -50,7 +51,12 @@
                     </li>
                 {% endfor %}
             </ul>
-            {{ knp_pagination_render(mponinas) }}
+            <div class="pagination mt-3 d-block">
+                <div class="float-right">
+                    {{ knp_pagination_render(mponinas) }}
+                </div>
+                <a href="#" class="float-left">Mponina miisa {{ mponinas.totalItemCount }}</a>
+            </div>
         </div>
     </div>
 {% endblock %}
