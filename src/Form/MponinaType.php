@@ -106,6 +106,7 @@ class MponinaType extends AbstractType
                     'attr' => [
                         'class' => 'select2-parent',
                     ],
+                    'label' => 'Ray niteraka',
                 ]
             );
             $form->add(
@@ -118,6 +119,7 @@ class MponinaType extends AbstractType
                     'attr' => [
                         'class' => 'select2-parent',
                     ],
+                    'label' => 'Reny niteraka',
                 ]
             );
         });
