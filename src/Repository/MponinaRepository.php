@@ -100,4 +100,30 @@ class MponinaRepository extends ServiceEntityRepository
 
         return array_unique($list, SORT_REGULAR);
     }
+
+    /**
+     * @param Fokontany|null $fokontany
+     * @param int|null       $genres
+     *
+     * @return mixed
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getMponinaByGenre(?Fokontany $fokontany, ?int $genres)
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        return $qb->select('COUNT(m.id)')
+            ->where('m.deletedAt IS NULL')
+            ->andWhere('m.isAlive = :alive')
+            ->andWhere('m.fokontany = :fokontany')
+            ->andWhere('m.genres = :genre')
+            ->setParameters([
+                'alive' => true,
+                'fokontany' => $fokontany,
+                'genre' => $genres,
+            ])
+            ->getQuery()->getSingleScalarResult();
+    }
 }

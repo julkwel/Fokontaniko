@@ -28,3 +28,15 @@
     font-size: 14px;
     color: #b1a7a7;
 }
+
+.btn.btn-sm{
+    border-radius: 0px;
+}
+
+.user-profile{
+    background: linear-gradient(to right, #ffffff 0%, #e56568 50%, #72cd9e 100%);
+}
+
+.mainheader-area .logo a span{
+    color: #e56568;
+}

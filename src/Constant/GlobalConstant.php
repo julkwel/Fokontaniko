@@ -29,4 +29,9 @@ class GlobalConstant
         1 => 'Dark',
         2 => 'Light',
     ];
+
+    public const GENRE = [
+        1 => 'Lahy',
+        2 => 'Vavy',
+    ];
 }

@@ -1,43 +1,44 @@
-
-    <!-- main header area start -->
-    <div class="mainheader-area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3">
-                    <div class="logo">
-                        <a href="#"><img src="{{ asset('images/fokontany.jpg') }}" style="width: 100px;height: 50px" alt="logo"></a>
-                    </div>
+<!-- main header area start -->
+<div class="mainheader-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <div class="logo">
+                    <a href="#">
+                        <span class="display-4">FOKONTANIKO</span>
+                    </a>
                 </div>
-                <!-- profile info & task notification -->
-                <div class="col-md-9 clearfix text-right">
-                    <div class="d-md-inline-block d-block mr-md-4">
-                        <ul class="notification-area">
-                            <li id="full-view"><i class="ti-fullscreen"></i></li>
-                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                            <li class="settings-btn">
-                                <i class="ti-settings"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="clearfix d-md-inline-block d-block">
-                        <div class="user-profile m-0">
-                            <img class="avatar user-thumb" src="{{ asset('images/avatar.png') }}" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                                {{ app.user ? app.user.userName :'Fokontany' }}
-                                <i class="fa fa-angle-down"></i>
-                            </h4>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item" href="{{ path('app_logout') }}">
-                                    <span class="font-14">Hiala</span>
-                                    <i class="fa fa-chevron-circle-right"></i>
-                                </a>
-                            </div>
+            </div>
+            <!-- profile info & task notification -->
+            <div class="col-md-9 clearfix text-right">
+                <div class="d-md-inline-block d-block mr-md-4">
+                    <ul class="notification-area">
+                        <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                        <li class="settings-btn">
+                            <i class="ti-settings"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix d-md-inline-block d-block">
+                    <div class="user-profile m-0">
+                        <img class="avatar user-thumb" src="{{ asset('images/hero-img.png') }}" alt="avatar">
+                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                            {{ app.user ? app.user.userName : 'Fokontany' }}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                <span class="font-14">Hiala</span>
+                                <i class="fa fa-chevron-circle-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- main header area end -->
-    {% include 'admin/menu/_head_area.html.twig' %}
-    {% include 'admin/menu/_history.html.twig' %}
+</div>
+<!-- main header area end -->
+{% include 'admin/menu/_head_area.html.twig' %}
+{% include 'admin/menu/_history.html.twig' %}

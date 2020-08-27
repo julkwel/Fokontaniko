@@ -1,5 +1,6 @@
 import bootbox from 'bootbox';
 import Axios from "axios";
+import Chart from 'chart.js';
 
 const admin = {
     action: {
@@ -53,6 +54,42 @@ const admin = {
                     }
                 }
             });
+        },
+
+        createChart: (data, labels, label, ctx) => {
+            new Chart(ctx, {
+                type: 'pie',
+                responsive: true,
+                maintainAspectRatio: true,
+                tooltips: {
+                    enabled: true,
+                },
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: [
+                            '#ec6868',
+                            '#77d7a6',
+                        ],
+                        borderColor: [
+                            '#ec6868',
+                            '#77d7a6',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
         }
     },
 
@@ -81,6 +118,20 @@ const admin = {
                     });
                 }
             }
+        },
+
+        chartManager: () => {
+            let ctx = document.getElementById('myChart').getContext('2d');
+
+            admin.asynchronious.genreStats().then(res => {
+                let men = res.data.men;
+                let women = res.data.women;
+                let data = [men, women];
+                let labels = ['Lahy', 'Vavy'];
+                let label = '# Salan\'isan\'ny lahy sy vavy';
+
+                admin.action.createChart(data, labels, label, ctx);
+            });
         }
     },
 
@@ -94,6 +145,10 @@ const admin = {
 
         historyScroll: (page = 0) => {
             return Axios.get(Routing.generate('history_list', {page: page}));
+        },
+
+        genreStats: () => {
+            return Axios.get(Routing.generate('genre_stats'));
         }
     }
 };

@@ -19,6 +19,7 @@ $(document).ready(function () {
     admin.action.searchParent();
     admin.auto.switchMode();
     admin.auto.scrolling();
+    admin.auto.chartManager();
 });
 
 

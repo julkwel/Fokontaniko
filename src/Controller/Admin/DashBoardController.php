@@ -58,6 +58,10 @@ class DashBoardController extends AbstractBaseController
      */
     public function dashboardHome()
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $fokontany = $this->getUser()->getFokontany();
         $mponina = $this->mponinaRepository->countMponinaByFokontany($fokontany);
         $mpiasa = $this->userRepository->getTotalEmployee($fokontany);

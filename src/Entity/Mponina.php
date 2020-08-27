@@ -8,6 +8,7 @@
 namespace App\Entity;
 
 use App\Repository\MponinaRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -108,6 +109,16 @@ class Mponina
      * @ORM\OneToMany(targetEntity=Adidy::class, mappedBy="user")
      */
     private $adidies;
+
+    /**
+     * @ORM\Column(type="integer", length=2, nullable=true)
+     */
+    private $genres;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $birthDate;
 
     /**
      * Mponina constructor.
@@ -376,11 +387,19 @@ class Mponina
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getContact(): ?string
     {
         return $this->contact;
     }
 
+    /**
+     * @param string|null $contact
+     *
+     * @return $this
+     */
     public function setContact(?string $contact): self
     {
         $this->contact = $contact;
@@ -396,6 +415,11 @@ class Mponina
         return $this->adidies;
     }
 
+    /**
+     * @param Adidy $adidy
+     *
+     * @return $this
+     */
     public function addAdidy(Adidy $adidy): self
     {
         if (!$this->adidies->contains($adidy)) {
@@ -406,6 +430,11 @@ class Mponina
         return $this;
     }
 
+    /**
+     * @param Adidy $adidy
+     *
+     * @return $this
+     */
     public function removeAdidy(Adidy $adidy): self
     {
         if ($this->adidies->contains($adidy)) {
@@ -415,6 +444,46 @@ class Mponina
                 $adidy->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getGenres(): ?int
+    {
+        return $this->genres;
+    }
+
+    /**
+     * @param int|null $genres
+     *
+     * @return $this
+     */
+    public function setGenres(?int $genres): self
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getBirthDate(): ?DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param DateTimeInterface|null $birthDate
+     *
+     * @return $this
+     */
+    public function setBirthDate(?DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
 
         return $this;
     }
