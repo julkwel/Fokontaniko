@@ -1,7 +1,11 @@
-<h1>Fokontany : {{ mponina.fokontany? mponina.fokontany.name : 'Fokontaniko' }}</h1><br>
+<h1>Fokontany : {{ mponina.fokontany ? mponina.fokontany.name : 'Fokontaniko' }} || {{ mponina.fokontany.codeFkt }}</h1><br>
 <ul>
     <li>
         Anarana : {{ mponina.fullName }}
+    </li>
+    <br>
+    <li>
+        Lahy / Favy : {{ constant('\\App\\Constant\\GlobalConstant::GENRE')[mponina.genres] }}
     </li>
     <br>
     <li>
