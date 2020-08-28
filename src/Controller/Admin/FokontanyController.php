@@ -153,7 +153,6 @@ class FokontanyController extends AbstractBaseController
 
                 return $this->redirectToRoute('fokontany_responsable', ['id' => $fokontany->getId()]);
             }
-
         }
 
         return $this->render('admin/fokontany/_fokontany_responsable.html.twig', ['fokontany' => $fokontany]);

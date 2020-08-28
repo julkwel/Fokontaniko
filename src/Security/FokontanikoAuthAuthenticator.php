@@ -117,7 +117,7 @@ class FokontanikoAuthAuthenticator extends AbstractFormLoginAuthenticator
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['userName' => $credentials['userName']]);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException(sprintf('Tsy misy ny %s nampidirinao',$credentials['userName']));
+            throw new CustomUserMessageAuthenticationException(sprintf('Tsy misy ny %s nampidirinao', $credentials['userName']));
         }
 
         if (!$this->checkCredentials($credentials, $user)) {

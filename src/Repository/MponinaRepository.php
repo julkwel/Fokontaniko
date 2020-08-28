@@ -71,7 +71,6 @@ class MponinaRepository extends ServiceEntityRepository
             ->setParameter('fokontany', $fokontany)
             ->setParameter('isAlive', true)
             ->getQuery()->getSingleScalarResult();
-
     }
 
     /**
