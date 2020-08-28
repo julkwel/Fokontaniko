@@ -22,7 +22,8 @@ security:
                 secret:   '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
-            anonymous: lazy
+            anonymous: true
+            lazy: true
             provider: users
             guard:
                 authenticators:
