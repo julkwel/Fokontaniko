@@ -90,6 +90,9 @@
     "doctrine/sql-formatter": {
         "version": "1.0.1"
     },
+    "dompdf/dompdf": {
+        "version": "v0.8.5"
+    },
     "egulias/email-validator": {
         "version": "2.1.17"
     },
@@ -156,6 +159,12 @@
     "ocramius/proxy-manager": {
         "version": "2.8.0"
     },
+    "phenx/php-font-lib": {
+        "version": "0.5.2"
+    },
+    "phenx/php-svg-lib": {
+        "version": "v0.3.3"
+    },
     "php": {
         "version": "7.4"
     },
@@ -200,6 +209,9 @@
         "files": [
             "config/packages/ramsey_uuid_doctrine.yaml"
         ]
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.3.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
