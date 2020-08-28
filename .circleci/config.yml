@@ -9,17 +9,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.2-node-browsers
+      - image: circleci/php:7.4-node-browsers
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
 
     steps:
       - checkout
-      - run: sudo apt update
+      - run: sudo apt update -y && sudo apt-get install -y default-mysql-client gcc g++ node-gyp nodejs npm libpng-dev
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
-      - run: sudo docker-php-ext-install zip bcmath pdo_mysql
-      - run: sudo apt-get install -y default-mysql-client gcc g++ node-gyp nodejs npm libpng-dev
+      - run: sudo docker-php-ext-install zip bcmath pdo_mysql gd
+      - run: sudo docker-php-ext-enable gd
 
       # Download and cache dependencies
       - restore_cache:
