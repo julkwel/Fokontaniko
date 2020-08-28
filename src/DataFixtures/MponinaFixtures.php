@@ -18,6 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class MponinaFixtures
 {
+    /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
@@ -66,7 +67,7 @@ class MponinaFixtures
                 $pb->advance($i);
             }
         }
-
+        $symfonyStyle->note('Insertion 200 mponina !');
         $pb->finish();
     }
 }

@@ -1,0 +1,69 @@
+# Fokontaniko CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+# Julien Rajerison <julienrajerison5@gmail.com>.
+#
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.2-node-browsers
+      - image: circleci/mysql:5.7-ram
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+      - run: sudo docker-php-ext-install zip bcmath pdo_mysql
+      - run: sudo apt-get install -y default-mysql-client gcc g++ node-gyp nodejs npm libpng-dev
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: Symfony depedencies install
+          command: |
+            cp .env.test .env
+            composer install -n --prefer-dist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+
+      - run:
+          name: Lint coding standard style
+          command: |
+            git clone git://github.com/djoos/Symfony2-coding-standard.git && composer install -d ./Symfony2-coding-standard
+            ./Symfony2-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../../../Symfony2-coding-standard
+            ./Symfony2-coding-standard/vendor/bin/phpcs --standard=Symfony --ignore=*/vendor/*,/src/Kernel.php,*/Migrations/* ./src/
+      - run:
+          name: Install webpack depedencies
+          command: |
+            yarn install
+            yarn encore prod
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run:
+          name: Create and update DB
+          command: |
+            mysqladmin create fokontaniko --host="127.0.0.1" --user="root" --password="root"
+            php bin/console d:s:u -f
+      - run:
+          name: Testing
+          command: |
+            bin/phpunit
