@@ -142,7 +142,6 @@ class User implements UserInterface
      *
      * @return $this
      */
-
     public function setLastName(?string $lastname): self
     {
         $this->lastName = $lastname;

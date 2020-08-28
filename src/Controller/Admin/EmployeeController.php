@@ -48,6 +48,7 @@ class EmployeeController extends AbstractBaseController
      * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param EmployeeRepository           $employeeRepository
+     * @param EmployeeManager              $employeeManager
      */
     public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, EmployeeRepository $employeeRepository, EmployeeManager $employeeManager)
     {

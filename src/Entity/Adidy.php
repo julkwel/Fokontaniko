@@ -135,11 +135,19 @@ class Adidy
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getIsPaid(): ?bool
     {
         return $this->isPaid;
     }
 
+    /**
+     * @param bool $isPaid
+     *
+     * @return $this
+     */
     public function setIsPaid(bool $isPaid): self
     {
         $this->isPaid = $isPaid;
@@ -147,11 +155,19 @@ class Adidy
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNote(): ?string
     {
         return $this->note;
     }
 
+    /**
+     * @param string|null $note
+     *
+     * @return $this
+     */
     public function setNote(?string $note): self
     {
         $this->note = $note;
@@ -159,11 +175,19 @@ class Adidy
         return $this;
     }
 
+    /**
+     * @return Mponina|null
+     */
     public function getUser(): ?Mponina
     {
         return $this->user;
     }
 
+    /**
+     * @param Mponina|null $user
+     *
+     * @return $this
+     */
     public function setUser(?Mponina $user): self
     {
         $this->user = $user;

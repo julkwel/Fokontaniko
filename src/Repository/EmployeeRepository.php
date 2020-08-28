@@ -41,7 +41,7 @@ class EmployeeRepository extends ServiceEntityRepository
     public function findAllEmployee(?Fokontany $fokontany, ?string $needle = '')
     {
         $qb = $this->createQueryBuilder('e')
-            ->innerJoin(User::class,'u')
+            ->innerJoin(User::class, 'u')
             ->where('e.deletedAt IS NULL AND (u.firstName LIKE :needle OR u.lastName LIKE :needle OR u.userName LIKE :needle OR u.cin LIKE :needle)')
             ->andWhere('e.fokontany = :fokontany')
             ->andWhere('e.isAlive = :isAlive')

@@ -43,6 +43,7 @@ class MponinaController extends AbstractBaseController
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
+     * @param MponinaRepository            $mponinaRepository
      */
     public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, MponinaRepository $mponinaRepository)
     {

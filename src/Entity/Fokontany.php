@@ -216,6 +216,11 @@ class Fokontany
         return $this->mponinas;
     }
 
+    /**
+     * @param Mponina $mponina
+     *
+     * @return $this
+     */
     public function addMponina(Mponina $mponina): self
     {
         if (!$this->mponinas->contains($mponina)) {
@@ -226,6 +231,11 @@ class Fokontany
         return $this;
     }
 
+    /**
+     * @param Mponina $mponina
+     *
+     * @return $this
+     */
     public function removeMponina(Mponina $mponina): self
     {
         if ($this->mponinas->contains($mponina)) {
@@ -247,6 +257,11 @@ class Fokontany
         return $this->histories;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return $this
+     */
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
@@ -257,6 +272,11 @@ class Fokontany
         return $this;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return $this
+     */
     public function removeHistory(History $history): self
     {
         if ($this->histories->contains($history)) {

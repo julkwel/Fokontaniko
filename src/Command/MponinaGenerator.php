@@ -38,14 +38,6 @@ class MponinaGenerator extends Command
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function configure()
-    {
-        parent::configure();
-    }
-
-    /**
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
@@ -58,5 +50,13 @@ class MponinaGenerator extends Command
         $this->mponinaGenerator->generateMponina($io);
 
         exit(0);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function configure()
+    {
+        parent::configure();
     }
 }

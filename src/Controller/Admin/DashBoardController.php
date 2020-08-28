@@ -40,6 +40,7 @@ class DashBoardController extends AbstractBaseController
      * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param UserRepository               $userRepository
+     * @param MponinaRepository            $mponinaRepository
      */
     public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserRepository $userRepository, MponinaRepository $mponinaRepository)
     {

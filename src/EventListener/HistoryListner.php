@@ -42,7 +42,7 @@ class HistoryListner
             return;
         }
 
-        if ($this->tokenStorage->getToken()){
+        if ($this->tokenStorage->getToken()) {
             /** @var User $user */
             $user = $this->tokenStorage->getToken()->getUser();
             $history = new History();
@@ -71,7 +71,7 @@ class HistoryListner
             return;
         }
 
-        if ($this->tokenStorage->getToken()){
+        if ($this->tokenStorage->getToken()) {
             /** @var User $user */
             $user = $this->tokenStorage->getToken()->getUser();
             $history = new History();
@@ -99,7 +99,7 @@ class HistoryListner
             return;
         }
 
-        if ($this->tokenStorage->getToken()){
+        if ($this->tokenStorage->getToken()) {
             /** @var User $user */
             $user = $this->tokenStorage->getToken()->getUser();
             $action = sprintf('Nofafan\'i %s i %s', $user->getUsername(), $entity->getFirstName());

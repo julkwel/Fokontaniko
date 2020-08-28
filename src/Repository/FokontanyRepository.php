@@ -40,7 +40,7 @@ class FokontanyRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('f')
             ->andWhere('f.deletedAt IS NULL')
             ->andWhere('f.name LIKE :needle OR f.codeFkt LIKE :needle')
-            ->setParameter('needle','%'.$needle.'%')
+            ->setParameter('needle', '%'.$needle.'%')
             ->getQuery();
     }
 }

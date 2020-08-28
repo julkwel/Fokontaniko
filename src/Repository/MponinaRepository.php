@@ -48,8 +48,7 @@ class MponinaRepository extends ServiceEntityRepository
             ->setParameter('fokontany', $fokontany)
             ->setParameter('isAlive', true)
             ->setParameter('needle', '%'.$needle.'%')
-            ->addOrderBy('m.updatedAt','DESC')
-        ;
+            ->addOrderBy('m.updatedAt', 'DESC');
 
         return $qb->getQuery();
     }

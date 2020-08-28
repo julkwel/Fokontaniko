@@ -10,8 +10,10 @@ namespace App\Controller\Admin;
 use App\Controller\AbstractBaseController;
 use App\Manager\StatsManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -43,7 +45,9 @@ class StatsController extends AbstractBaseController
     /**
      * @Route("/genre", name="genre_stats", options={"expose"=true})
      *
-     * @throws
+     * @return JsonResponse
+     *
+     * @throws Exception
      */
     public function getGenreStats()
     {

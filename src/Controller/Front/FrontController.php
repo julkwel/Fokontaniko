@@ -8,6 +8,7 @@
 namespace App\Controller\Front;
 
 use App\Controller\AbstractBaseController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,6 +18,8 @@ class FrontController extends AbstractBaseController
 {
     /**
      * @Route("/", name="front_home", methods={"POST","GET"})
+     *
+     * @return Response
      */
     public function home()
     {

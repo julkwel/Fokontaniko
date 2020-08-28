@@ -41,8 +41,7 @@ class HistoryRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('h');
         $qb->andWhere('h.fokontany = :fokontany')
             ->setParameter('fokontany', $fokontany)
-            ->orderBy('h.updatedAt','DESC')
-        ;
+            ->orderBy('h.updatedAt', 'DESC');
 
         return $qb->getQuery();
     }

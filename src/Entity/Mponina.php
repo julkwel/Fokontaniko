@@ -249,7 +249,6 @@ class Mponina
     /**
      * @return bool|null
      */
-
     public function getIsAlive(): ?bool
     {
         return $this->isAlive;
