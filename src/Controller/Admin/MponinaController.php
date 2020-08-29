@@ -19,7 +19,6 @@ use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,13 +40,12 @@ class MponinaController extends AbstractBaseController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param MponinaRepository            $mponinaRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, MponinaRepository $mponinaRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator, MponinaRepository $mponinaRepository)
     {
-        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        parent::__construct($entityManager, $userPasswordEncoder, $paginator);
         $this->mponinaRepository = $mponinaRepository;
     }
 

@@ -17,7 +17,6 @@ use App\Form\FokontanyType;
 use App\Repository\FokontanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,13 +38,12 @@ class FokontanyController extends AbstractBaseController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param FokontanyRepository          $fokontanyRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, FokontanyRepository $fokontanyRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator, FokontanyRepository $fokontanyRepository)
     {
-        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        parent::__construct($entityManager, $userPasswordEncoder, $paginator);
         $this->repository = $fokontanyRepository;
     }
 

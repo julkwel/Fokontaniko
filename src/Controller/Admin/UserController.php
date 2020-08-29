@@ -19,8 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,14 +44,13 @@ class UserController extends AbstractBaseController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param UserManager                  $userManager
      * @param UserRepository               $userRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, UserManager $userManager, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator, UserManager $userManager, UserRepository $userRepository)
     {
-        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        parent::__construct($entityManager, $userPasswordEncoder, $paginator);
         $this->userManager = $userManager;
         $this->repository = $userRepository;
     }

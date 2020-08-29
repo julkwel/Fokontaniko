@@ -16,7 +16,6 @@ use App\Form\AdidyType;
 use App\Repository\AdidyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,13 +36,12 @@ class AdidyController extends AbstractBaseController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param AdidyRepository              $adidyRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, AdidyRepository $adidyRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator, AdidyRepository $adidyRepository)
     {
-        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        parent::__construct($entityManager, $userPasswordEncoder, $paginator);
         $this->repository = $adidyRepository;
     }
 

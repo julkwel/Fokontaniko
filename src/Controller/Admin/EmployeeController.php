@@ -19,8 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,14 +43,13 @@ class EmployeeController extends AbstractBaseController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      * @param EmployeeRepository           $employeeRepository
      * @param EmployeeManager              $employeeManager
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator, EmployeeRepository $employeeRepository, EmployeeManager $employeeManager)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator, EmployeeRepository $employeeRepository, EmployeeManager $employeeManager)
     {
-        parent::__construct($entityManager, $userPasswordEncoder, $urlEncrypt, $paginator);
+        parent::__construct($entityManager, $userPasswordEncoder, $paginator);
         $this->repository = $employeeRepository;
         $this->employeManager = $employeeManager;
     }

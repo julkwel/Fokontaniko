@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "10993ef21da1094a29a67ddac2f3f1f1",
+    "content-hash": "fbe0d090f4930fdec8980b9a440302cf",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2443,60 +2443,6 @@
                 "enum"
             ],
             "time": "2020-02-14T08:15:52+00:00"
-        },
-        {
-            "name": "nzo/url-encryptor-bundle",
-            "version": "v5.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nayzo/NzoUrlEncryptorBundle.git",
-                "reference": "e08810b99ce12759366e09110400f3e6df41eb46"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nayzo/NzoUrlEncryptorBundle/zipball/e08810b99ce12759366e09110400f3e6df41eb46",
-                "reference": "e08810b99ce12759366e09110400f3e6df41eb46",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*",
-                "php": "^7.2.5",
-                "symfony/framework-bundle": "^5.0",
-                "twig/twig": "^2.10|^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Nzo\\UrlEncryptorBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ala Eddine Khefifi",
-                    "email": "alakhefifi@gmail.com"
-                }
-            ],
-            "description": "The NzoUrlEncryptorBundle is a Symfony Bundle used to Encrypt and Decrypt data and variables in the Web application or passed through URL",
-            "keywords": [
-                "data",
-                "decrypt",
-                "decryption",
-                "encrypt",
-                "encryption",
-                "id",
-                "link",
-                "security",
-                "url",
-                "variable"
-            ],
-            "time": "2020-06-25T15:34:07+00:00"
         },
         {
             "name": "ocramius/proxy-manager",

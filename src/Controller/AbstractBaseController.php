@@ -9,19 +9,14 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Nzo\UrlEncryptorBundle\UrlEncryptor\UrlEncryptor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class AbstractBaseController.
  */
 class AbstractBaseController extends AbstractController
 {
-    /** @var UrlEncryptor */
-    protected $urlEncrypt;
-
     /** @var EntityManagerInterface */
     protected $entityManager;
 
@@ -36,14 +31,12 @@ class AbstractBaseController extends AbstractController
      *
      * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UrlEncryptor                 $urlEncrypt
      * @param PaginatorInterface           $paginator
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UrlEncryptor $urlEncrypt, PaginatorInterface $paginator)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, PaginatorInterface $paginator)
     {
         $this->entityManager = $entityManager;
         $this->userPassEncoder = $userPasswordEncoder;
-        $this->urlEncrypt = $urlEncrypt;
         $this->paginator = $paginator;
     }
 
@@ -68,25 +61,5 @@ class AbstractBaseController extends AbstractController
 //            dd($exception);
             return false;
         }
-    }
-
-    /**
-     * @param string|null $id to decrypt
-     *
-     * @return string of the decrypted id
-     */
-    public function decryptThisId(?string $id)
-    {
-        return $this->urlEncrypt->decrypt($id);
-    }
-
-    /**
-     * @param string|null $id to encrypt
-     *
-     * @return string of encrypted id
-     */
-    public function encryptThisId(?string $id)
-    {
-        return $this->urlEncrypt->encrypt($id);
     }
 }

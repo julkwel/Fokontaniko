@@ -150,9 +150,6 @@
     "nikic/php-parser": {
         "version": "v4.4.0"
     },
-    "nzo/url-encryptor-bundle": {
-        "version": "v5.0.1"
-    },
     "ocramius/package-versions": {
         "version": "1.8.0"
     },
