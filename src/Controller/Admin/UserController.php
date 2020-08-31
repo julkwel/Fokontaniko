@@ -111,8 +111,6 @@ class UserController extends AbstractBaseController
     /**
      * @Route("/die/{id}", name="user_die", methods={"POST","GET"})
      *
-     * @ParamDecryptor(params={"id"})
-     *
      * @param User $user died
      *
      * @return RedirectResponse
