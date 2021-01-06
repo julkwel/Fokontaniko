@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@ttskch/select2-bootstrap4-theme": "^1.4.0",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "babel-loader": "^8.1.0",
         "bootbox": "^5.4.0",
         "chart.js": "^2.9.3",
