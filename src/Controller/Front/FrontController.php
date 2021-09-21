@@ -25,4 +25,12 @@ class FrontController extends AbstractBaseController
     {
         return $this->render('front/_index.html.twig');
     }
+
+    /**
+     * @Route("/badge", name="badge")
+     */
+    public function participants()
+    {
+        return $this->render('front/badge.html.twig');
+    }
 }

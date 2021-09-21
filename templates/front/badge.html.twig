@@ -1,0 +1,153 @@
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500" rel="stylesheet">
+
+<div class="d-flex">
+    <div class="card">
+        <div class="card-avatar">
+            <img src="{{ asset('images/fa_white.png') }}" style="width: calc(var(--card-size) * 1.586);"  alt=""/>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-details">
+            <div class="name">Partenaires :</div>
+            <div class="card-about">
+                <div class="item">
+                    <img src="{{ asset('images/Novity_Positif.jpg') }}" style="width: 60px;height: 60px" alt="">
+                </div>
+                <div class="item">
+                    <img src="{{ asset('images/AVANAhub (2).png') }}" style=" height: 38px;width: 71px;" alt="">
+                </div>
+            </div>
+            <div class="card-about">
+                <div class="item">
+                    <img src="{{ asset('images/logo etech.png') }}" style="height: 25px;width: 79px;" alt="">
+                </div>
+                <div class="item">
+                    <img src="{{ asset('images/orange.webp') }}" style="height: 51px;width: 51px;" alt="">
+                </div>
+            </div>
+            <div class="card-about">
+                <div class="item">
+                    <img src="{{ asset('images/pulse.png') }}" style="width: 68px;height: 68px" alt="">
+                </div>
+                <div class="item">
+                    <img src="{{ asset('images/bocasay.jpeg') }}" style="width: 62px;height: 62px" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="card-avatar">
+            <img src="{{ qr_code_path('My QR Code') }}"  alt=""/>
+            <span style="text-align: center">Hano ny hanina fa ny harena mila vintana</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        --background: white;
+        --primary: #ff1ead;
+        --secondary: #1effc3;
+        --card-size: 300px;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    body {
+        height: 100vh;
+        margin: 0;
+        display: grid;
+        /*place-items: center;*/
+        padding: 1rem;
+        background: var(--background);
+        font-family: "Source Code Pro", monospace;
+        text-rendering: optimizelegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .card {
+        width: calc(var(--card-size) * 1.586);
+        height: var(--card-size);
+        border-radius: 0.75rem;
+        /*box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);*/
+        border: solid 1px black;
+        background: white;
+        display: grid;
+        grid-template-columns: 40% auto;
+        color: black;
+        align-items: center;
+        will-change: transform;
+        /*transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);*/
+        margin: 5px;
+    }
+    /*.card:hover {*/
+    /*    transform: scale(1.1);*/
+    /*    box-shadow: 0 32px 80px 14px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(0, 0, 0, 0.3);*/
+    /*}*/
+
+    .card-details {
+        padding: 1rem;
+    }
+
+    .name {
+        font-size: 1.25rem;
+    }
+
+    .occupation {
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .card-avatar {
+        display: grid;
+        place-items: center;
+    }
+
+    svg {
+        fill: white;
+        width: 65%;
+    }
+
+    .card-about {
+        margin-top: 1rem;
+        display: grid;
+        grid-auto-flow: column;
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+    .item .value {
+        font-size: 1rem;
+    }
+    .item .label {
+        margin-top: 0.15rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .skills {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.75rem;
+    }
+    .skills .label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+    .skills .value {
+        margin-top: 0.15rem;
+        font-size: 0.75rem;
+        line-height: 1.25rem;
+    }
+</style>

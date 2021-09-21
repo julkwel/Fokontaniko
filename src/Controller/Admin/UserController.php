@@ -10,7 +10,6 @@ namespace App\Controller\Admin;
 use App\Constant\MessageConstant;
 use App\Constant\PageConstant;
 use App\Controller\AbstractBaseController;
-use App\Entity\Employee;
 use App\Manager\UserManager;
 use App\Entity\User;
 use App\Form\UserType;
@@ -18,6 +17,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use Endroid\QrCodeBundle\Response\QrCodeResponse;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserController.
@@ -89,7 +90,9 @@ class UserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->userManager->handleUserBeforePersist($form, $user, $this->getUser(), true);
+            /** @var UserInterface $currentUser */
+            $currentUser = $this->getUser();
+            $user = $this->userManager->handleUserBeforePersist($form, $user, $currentUser, true);
             if ($request->get('type')) {
                 $user->setRoles(['ROLE_ADMIN']);
             }
@@ -103,7 +106,6 @@ class UserController extends AbstractBaseController
 
             return $this->redirectToRoute('manage_user', ['id' => $user->getId()]);
         }
-
 
         return $this->render('admin/user/_user_form.html.twig', ['form' => $form->createView()]);
     }
@@ -175,7 +177,7 @@ class UserController extends AbstractBaseController
             $this->addFlash(MessageConstant::SUCCESS_TYPE, 'Voaray ny fanovàna');
 
             return $this->redirectToRoute('list_user');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->addFlash(MessageConstant::ERROR_TYPE, 'Misy olana ny fokontaniko');
 
             return $this->redirectToRoute('list_user');
@@ -196,7 +198,7 @@ class UserController extends AbstractBaseController
             $this->entityManager->flush();
 
             return $this->json(['message' => 'success', 'theme' => $user->getTheme()]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->json(['message' => '']);
         }
     }

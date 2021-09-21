@@ -1,11 +1,11 @@
 endroid_qr_code:
     writer: 'png'
-    size: 300
+    size: 200
     margin: 10
     error_correction_level: 'low'
     validate_result: false
     foreground_color: { r: 0, g: 0, b: 0 }
     background_color: { r: 255, g: 255, b: 255 }
     encoding: UTF-8
-    label: 'Scanneo eto !'
+#    label: 'Scanneo eto !'
     label_font_size: 20
