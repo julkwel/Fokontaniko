@@ -5,7 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "dompdf/dompdf": "^0.8.5",
+        "dompdf/dompdf": "^1.2.1",
         "endroid/qr-code-bundle": "^3.4",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "fzaninotto/faker": "^1.9",
